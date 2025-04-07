@@ -4,11 +4,10 @@ import json
 import requests
 import subprocess
 from packaging.version import parse as parse_version
-# NEW Imports
 import git # For GitPython
-# We'll import Github later when we use it
+# import github # Import later
 
-# --- Helper functions (parse_package_json, parse_package_lock_v2_v3, get_npm_package_info, check_npm_range_satisfaction, query_osv_api) remain the same ---
+# --- Helper functions (parse_package_json, parse_package_lock_v2_v3, get_npm_package_info, check_npm_range_satisfaction, query_osv_api, create_update_branch) remain the same ---
 # [Keep the previous functions here]
 # --- Helper Function to parse package.json ---
 def parse_package_json(file_path):
@@ -82,7 +81,6 @@ def get_npm_package_info(package_name):
         }
     except requests.exceptions.HTTPError as e:
         if e.response.status_code == 404:
-             # Changed nl=True to ensure this warning is on its own line
              click.echo(click.style(f" -> Warning: Package '{package_name}' not found on npm registry.", fg='yellow'), nl=True)
         else:
             click.echo(click.style(f" -> Error fetching data for '{package_name}': HTTP {e.response.status_code}", fg='red'), nl=True)
@@ -110,7 +108,6 @@ def check_npm_range_satisfaction(version, range_spec):
 
         if result.returncode != 0:
             error_msg = result.stderr.strip() or result.stdout.strip()
-            # Make error message slightly more compact for the flow
             click.echo(click.style(f" (Node err: {error_msg})", fg='red'), nl=False, err=True) # Keep on same line
             return None
 
@@ -126,7 +123,6 @@ def check_npm_range_satisfaction(version, range_spec):
     except Exception as e:
         click.echo(click.style(f" (Subprocess err: {e})", fg='red'), nl=False, err=True)
         return None
-
 
 # --- Helper Function to query OSV API ---
 def query_osv_api(packages_dict):
@@ -164,7 +160,6 @@ def query_osv_api(packages_dict):
                  if vuln_ids:
                      vulnerabilities[package_key] = vuln_ids
         return vulnerabilities
-    # Consolidated error handling for brevity
     except requests.exceptions.RequestException as e:
         click.echo(click.style(f"Error querying OSV API: {e}", fg='red'))
         return None # Indicate failure
@@ -172,38 +167,28 @@ def query_osv_api(packages_dict):
          click.echo(click.style("Error decoding OSV API response.", fg='red'))
          return None # Indicate failure
 
-
-# --- NEW Helper Function for Git Branching ---
 # --- Helper Function for Git Branching ---
 def create_update_branch(repo_path, package_name, new_version):
     """Creates and checks out a new branch for the dependency update."""
     try:
-        # MODIFIED: Added search_parent_directories=True
         repo = git.Repo(repo_path, search_parent_directories=True)
-        # Get the actual repo root found
         repo_root = repo.working_tree_dir
         click.echo(f"Operating on Git repo found at: {repo_root}")
 
-
-        # Check if the repo is dirty (check from the found root)
         if repo.is_dirty(untracked_files=True):
             click.echo(click.style(f"Error: Repository at {repo_root} has uncommitted changes. Please commit or stash them.", fg='red'))
-            return None, None # Indicate failure
+            return None, None
 
-        # Define branch name
         branch_name = f"depguardian/update-{package_name}-{new_version}"
         click.echo(f"Attempting to create branch: {branch_name}")
 
-        # Check if branch already exists
         if branch_name in repo.heads:
             click.echo(click.style(f"Warning: Branch '{branch_name}' already exists. Checking it out.", fg='yellow'))
             existing_branch = repo.heads[branch_name]
-            # Ensure we are on the branch if it already exists
             if repo.active_branch != existing_branch:
                  existing_branch.checkout()
-            return repo, branch_name # Return existing branch
+            return repo, branch_name
 
-        # Create and checkout the new branch from the current head
         current_head = repo.head.commit
         new_branch = repo.create_head(branch_name, commit=current_head)
         new_branch.checkout()
@@ -211,9 +196,6 @@ def create_update_branch(repo_path, package_name, new_version):
         return repo, branch_name
 
     except git.InvalidGitRepositoryError:
-        # This error is less likely now with search_parent_directories=True,
-        # but keep it just in case. It would mean no .git folder was found
-        # in repo_path or any parent directory.
         click.echo(click.style(f"Error: No valid Git repository found at or above '{repo_path}'.", fg='red'))
         return None, None
     except git.GitCommandError as e:
@@ -223,38 +205,69 @@ def create_update_branch(repo_path, package_name, new_version):
          click.echo(click.style(f"An unexpected error occurred during Git operations: {e}", fg='red'))
          return None, None
 
+# --- NEW Helper Function to run npm install ---
+def run_npm_install(project_path, package_name, version):
+    """Runs 'npm install package@version' in the specified project path."""
+    command = ['npm', 'install', f"{package_name}@{version}"]
+    click.echo(f"Running command: `{' '.join(command)}` in '{project_path}'...")
+    try:
+        # Use check=True to automatically raise CalledProcessError on failure
+        result = subprocess.run(
+            command,
+            cwd=project_path, # Run in the directory with package.json
+            capture_output=True,
+            text=True,
+            check=True, # Raise exception on non-zero exit code
+            timeout=120 # Add a longer timeout for npm install
+        )
+        click.echo(click.style("npm install completed successfully.", fg='green'))
+        # You could print stdout/stderr here if needed for debugging, but check=True handles errors
+        # click.echo(result.stdout)
+        return True
+    except FileNotFoundError:
+        click.echo(click.style("Error: 'npm' command not found. Please ensure Node.js/npm is installed and in your PATH.", fg='red'))
+        return False
+    except subprocess.CalledProcessError as e:
+        click.echo(click.style(f"Error during `npm install`: {e}", fg='red'))
+        click.echo(click.style(f"npm stderr:\n{e.stderr}", fg='red'))
+        return False
+    except subprocess.TimeoutExpired:
+        click.echo(click.style("Error: `npm install` timed out.", fg='red'))
+        return False
+    except Exception as e:
+        click.echo(click.style(f"An unexpected error occurred running npm install: {e}", fg='red'))
+        return False
+
 
 @click.group()
 def cli():
     """A tool to analyze project dependencies."""
     pass
 
-# --- Add new options to the check command ---
 @cli.command()
-@click.option('--path', default='.', help='Path to the project directory (containing package.json and Git repo). Defaults to current directory.')
+@click.option('--path', default='.', help='Path to the project directory (containing package.json). Defaults to current directory.')
 @click.option('--create-pr', is_flag=True, default=False, help='Attempt to create a branch and Pull Request on GitHub for the first found update.')
 @click.option('--github-repo', default=None, help='Target GitHub repository in "owner/repo" format (required if --create-pr).')
 @click.option('--github-token', default=None, help='GitHub Personal Access Token (required if --create-pr). Reads from GITHUB_TOKEN env var if not set.')
 def check(path, create_pr, github_repo, github_token):
     """Checks dependencies and optionally creates update PRs."""
+    project_path = os.path.abspath(path) # Use absolute path for clarity
 
     # --- PR Pre-checks ---
+    _github_token = None # Define variable early
     if create_pr:
         token = github_token or os.environ.get('GITHUB_TOKEN')
         if not token:
-            click.echo(click.style("Error: --create-pr requires a GitHub token via --github-token option or GITHUB_TOKEN environment variable.", fg='red'))
-            return
+            click.echo(click.style("Error: --create-pr requires token.", fg='red')); return
         if not github_repo:
-            click.echo(click.style("Error: --create-pr requires --github-repo 'owner/repo'.", fg='red'))
-            return
-        # Store token securely if needed later (don't print it)
-        _github_token = token # Use internal variable
-        click.echo("PR creation mode enabled.") # Inform user
+            click.echo(click.style("Error: --create-pr requires --github-repo.", fg='red')); return
+        _github_token = token
+        click.echo("PR creation mode enabled.")
 
-    # --- 1 & 2. Parsing (remains the same) ---
-    click.echo(f"Checking project at path: {os.path.abspath(path)}")
-    package_json_path = os.path.join(path, 'package.json')
-    package_lock_path = os.path.join(path, 'package-lock.json')
+    # --- 1 & 2. Parsing ---
+    click.echo(f"Checking project at path: {project_path}")
+    package_json_path = os.path.join(project_path, 'package.json')
+    package_lock_path = os.path.join(project_path, 'package-lock.json')
     direct_dependencies = parse_package_json(package_json_path)
     if direct_dependencies is None: return
     click.echo(f"\nFound {len(direct_dependencies)} direct dependencies in package.json.")
@@ -264,117 +277,90 @@ def check(path, create_pr, github_repo, github_token):
     if installed_packages is None: return
     click.echo(f"Found {len(installed_packages)} total installed packages in package-lock.json.")
 
-    # --- 3. Check latest versions (remains the same logic) ---
-    # [This section remains the same - iterates, calls helpers, collects outdated_direct_deps]
+    # --- 3. Check latest versions ---
+    # [This section remains the same]
     click.echo("\nChecking direct dependencies against npm registry:")
     outdated_direct_deps = []
-    node_available = True # Flag to avoid repeated 'node not found' errors
+    node_available = True
 
     for name, required_range in direct_dependencies.items():
         click.echo(f" - Checking {name} ({required_range})...", nl=False)
-
-        info = get_npm_package_info(name)
         installed_detail = installed_packages.get(name)
         installed_version_str = installed_detail.get('version') if installed_detail else None
+        info = get_npm_package_info(name)
 
-        if not info or not info.get('latest_version'):
-            # Error already printed by helper
-            click.echo("") # Add newline if error occurred
-            continue
-
-        if not installed_version_str:
-             click.echo(click.style(f" -> Warning: '{name}' not found in lock file!", fg='yellow'), nl=True)
-             continue
+        if not info or not info.get('latest_version'): click.echo(""); continue
+        if not installed_version_str: click.echo(click.style(f" -> Warning: '{name}' not found in lock file!", fg='yellow'), nl=True); continue
 
         try:
             latest_version_str = info['latest_version']
             latest_version_obj = parse_version(latest_version_str)
             installed_version_obj = parse_version(installed_version_str)
-
-            status = ""
-            status_color = 'green'
-            satisfies = None # Define satisfies before the check
+            status, status_color, satisfies = "", 'green', None
 
             if node_available:
                 satisfies = check_npm_range_satisfaction(installed_version_str, required_range)
 
-            if satisfies is None:
-                # Error during check, message printed by helper or node error detected
-                status = "Range check error" # Keep status brief here
-                status_color = 'red'
-                if "(Node not found)" in click.get_current_context().err.getvalue(): # Check if node is missing
-                     node_available = False # Don't try node again
-            elif not satisfies:
-                 status = f"Installed version {installed_version_str} does NOT satisfy {required_range}!"
-                 status_color = 'red'
+            if satisfies is None: status, status_color = "Range check error", 'red'; # Shortened
+            elif not satisfies: status, status_color = f"Installed {installed_version_str} invalid for {required_range}!", 'red'
 
-            # Check for updates
             update_available = latest_version_obj > installed_version_obj
             if update_available:
                  status += f" Update available: {latest_version_str}"
-                 status_color = 'yellow' if status_color == 'green' else status_color # Keep red if already red
-                 outdated_direct_deps.append({
-                     'name': name,
-                     'installed': installed_version_str,
-                     'latest': latest_version_str,
-                     'required': required_range
-                 })
-            elif not status and satisfies is not None: # OK only if no issues and range check passed
-                 status = "OK"
-            elif satisfies is None: # If range check failed, don't say OK
-                 pass # Status already indicates failure
+                 status_color = 'yellow' if status_color == 'green' else status_color
+                 outdated_direct_deps.append({'name': name, 'installed': installed_version_str, 'latest': latest_version_str, 'required': required_range})
+            elif not status and satisfies is not None: status = "OK"
 
-            click.echo(click.style(f" -> Installed: {installed_version_str}, Latest: {latest_version_str}. Status: {status}", fg=status_color), nl=True) # Ensure newline
-
-        except Exception as e: # Catch errors from packaging.version.parse etc.
+            click.echo(click.style(f" -> Installed: {installed_version_str}, Latest: {latest_version_str}. Status: {status}", fg=status_color), nl=True)
+        except Exception as e:
              click.echo(click.style(f" -> Error processing Python versions for {name}: {e}", fg='red'), nl=True)
 
-    # --- Summary of outdated ---
-    if outdated_direct_deps:
-         click.echo(f"\nFound {len(outdated_direct_deps)} potentially outdated direct dependencies.")
-    else:
-         click.echo("\nAll direct dependencies seem up-to-date according to the registry and satisfy package.json ranges (where checkable).")
 
+    if outdated_direct_deps: click.echo(f"\nFound {len(outdated_direct_deps)} potentially outdated direct dependencies.")
+    else: click.echo("\nAll direct dependencies seem up-to-date...") # Shortened
 
-    # --- 4. Query OSV (remains the same logic) ---
-    # [This section remains the same - calls query_osv_api, reports results]
+    # --- 4. Query OSV ---
+    # [This section remains the same]
     click.echo("\nQuerying OSV API for vulnerabilities for all installed packages...")
     vulnerabilities_found = query_osv_api(installed_packages)
 
-    if vulnerabilities_found is None:
-        click.echo(click.style("Vulnerability check failed due to API error.", fg='red'))
-    elif not vulnerabilities_found:
-        click.echo(click.style("No known vulnerabilities found in installed packages via OSV.", fg='green'))
+    if vulnerabilities_found is None: click.echo(click.style("Vulnerability check failed.", fg='red'))
+    elif not vulnerabilities_found: click.echo(click.style("No known vulnerabilities found via OSV.", fg='green'))
     else:
         click.echo(click.style(f"\nWARNING: Found vulnerabilities in {len(vulnerabilities_found)} package versions:", fg='red', bold=True))
         for package_key, vuln_ids in sorted(vulnerabilities_found.items()):
             click.echo(click.style(f"  - {package_key}: {', '.join(vuln_ids)}", fg='red'))
 
-
-    # --- 5. Attempt PR Creation (NEW) ---
+    # --- 5. Attempt PR Creation ---
     if create_pr and outdated_direct_deps:
         click.echo("\nAttempting to create PR for the first outdated dependency...")
-        # Select the first outdated dependency
         dep_to_update = outdated_direct_deps[0]
         pkg_name = dep_to_update['name']
         latest_ver = dep_to_update['latest']
-
         click.echo(f"Targeting update for: {pkg_name} to version {latest_ver}")
 
         # Step 5a: Create Branch
-        repo_obj, new_branch_name = create_update_branch(path, pkg_name, latest_ver)
+        # Use project_path here, as it's the path within the repo we care about for branching logic context
+        repo_obj, new_branch_name = create_update_branch(project_path, pkg_name, latest_ver)
 
         if repo_obj and new_branch_name:
             click.echo(f"Branch '{new_branch_name}' is ready.")
-            # --- NEXT STEPS WITHIN THIS BLOCK ---
-            # 5b. Run 'npm install <pkg>@<version>' using subprocess
-            # 5c. Commit changes using GitPython (repo_obj.index.add, repo_obj.index.commit)
-            # 5d. Push branch using GitPython (repo_obj.remotes.origin.push)
-            # 5e. Create PR using PyGithub (requires github_repo, _github_token)
-            click.echo("TODO: Implement npm install, commit, push, and PR creation.") # Placeholder
+
+            # --- Step 5b: Run 'npm install <pkg>@<version>' ---
+            install_success = run_npm_install(project_path, pkg_name, latest_ver)
+
+            if install_success:
+                # --- NEXT STEPS WITHIN THIS BLOCK ---
+                # 5c. Commit changes using GitPython (repo_obj.index.add, repo_obj.index.commit)
+                # 5d. Push branch using GitPython (repo_obj.remotes.origin.push)
+                # 5e. Create PR using PyGithub (requires github_repo, _github_token)
+                click.echo("TODO: Implement commit, push, and PR creation.") # Placeholder
+            else:
+                click.echo(click.style("npm install failed. Aborting PR creation.", fg='red'))
+                # Optional: Switch back to original branch? Or leave the failed branch?
+                # For now, just abort.
         else:
              click.echo(click.style("Branch creation failed. Cannot proceed with PR.", fg='red'))
-
 
     click.echo("\nCheck complete.")
 
