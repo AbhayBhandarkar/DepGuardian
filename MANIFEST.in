@@ -1,0 +1,1 @@
+include dep_guardian/semver_checker.js

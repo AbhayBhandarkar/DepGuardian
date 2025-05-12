@@ -1,1 +1,16 @@
-/node_modules
+# Node artifacts
+node_modules/
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+dist/
+build/
+*.egg-info/
+
+# Environment files
+.env
+
+# IDE/editor
+.vscode/
+.idea/
