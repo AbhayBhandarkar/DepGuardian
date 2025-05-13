@@ -15,10 +15,10 @@ except FileNotFoundError:
 
 # Define the current version (Consider reading from a __version__ variable)
 # Ensure this matches the tag you push for releases (e.g., v0.1.1)
-PACKAGE_VERSION = "0.1.1"  # <-- UPDATE THIS FOR NEW RELEASES
+PACKAGE_VERSION = "0.1.1"  
 
 setup(
-    name="dep-guardian",  # Name as it appears on PyPI
+    name="dep-guardian", 
     version=PACKAGE_VERSION,
     description="CLI tool to audit & auto-update Node.js dependencies via GitHub PRs",
     long_description=long_desc,
@@ -51,7 +51,7 @@ setup(
         "Topic :: System :: Software Distribution",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
+        #"Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
