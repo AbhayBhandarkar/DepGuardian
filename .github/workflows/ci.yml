@@ -1,53 +1,107 @@
-name: CI & Release
+# .github/workflows/main.yml
+# Purpose: Defines the CI/CD pipeline for testing, linting, and publishing.
+
+name: DepGuardian CI/CD
 
 on:
   push:
-    branches: [ main ]
-    tags: [ 'v*.*.*' ]
+    branches: [ main ] # Or your primary development branch
+    # Trigger build/publish only on version tags (e.g., v1.0.0, v0.1.2)
+    tags:
+      - 'v*.*.*'
   pull_request:
     branches: [ main ]
 
-jobs:
-  lint-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with: python-version: '3.9'
-      - uses: actions/setup-node@v3
-        with: node-version: '16'
-      - name: Install deps
-        run: |
-          pip install --upgrade pip
-          pip install . flake8 pytest
-          npm install
-      - name: Lint
-        run: flake8 dep_guardian
-      - name: Test
-        run: pytest || echo "No tests found"
-      - name: Smoke-test CLI
-        run: depg check --path test-project
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+# Set default permissions for the GITHUB_TOKEN available to the workflow.
+# 'contents: read' is needed for checkout.
+permissions:
+  contents: read
 
-  release:
-    if: startsWith(github.ref, 'refs/tags/v')
-    needs: lint-test
+jobs:
+  test_and_lint:
+    # This job runs on pushes/PRs to main AND on tag pushes
+    name: Test & Lint (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # Don't cancel all jobs if one Python version fails
+      matrix:
+        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with: python-version: '3.9'
-      - name: Build & Publish
-        run: |
-          pip install build twine
-          python -m build
-          twine upload dist/* -u __token__ -p ${{ secrets.PYPI_API_TOKEN }}
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref_name }}
-          release_name: ${{ github.ref_name }}
-          body: Release ${{ github.ref_name }}
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip' # Cache pip dependencies
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18' # Or the version suitable for your 'semver' package
+        cache: 'npm' # Cache npm dependencies
+
+    - name: Install Python build/test/lint dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # Install dev dependencies from requirements_dev.txt
+        pip install -r requirements_dev.txt
+        # Install the package itself along with runtime dependencies from setup.py
+        # Use -e for editable mode if tests need to import the package directly
+        pip install .
+
+    - name: Install Node.js dependencies (for semver_checker.js)
+      run: npm ci # Use 'ci' for faster, reproducible installs in CI
+
+    - name: Lint with Flake8
+          # Stop the build if there are Python syntax errors or undefined names
+      run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+    - name: Check formatting with Black
+      run: black . --check
+
+    - name: Run tests with Pytest
+      # Ensure you have created tests in the 'tests/' directory
+      run: pytest
+
+  publish:
+    name: Build and publish to PyPI
+    # Run only if the 'test_and_lint' job succeeded AND it's a tag push event
+    needs: test_and_lint
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+
+    # Grant permissions for uploading to PyPI using OIDC/Trusted Publishing (preferred)
+    # permissions:
+    #   id-token: write # Required for trusted publishing
+    # Or use the API token method (requires PYPI_API_TOKEN secret)
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+
+    - name: Install build dependencies
+      run: python -m pip install --upgrade pip build twine
+
+    - name: Build package
+      run: python -m build # Builds sdist and wheel into the 'dist/' directory
+
+    - name: Publish distribution 📦 to PyPI
+      env:
+        # Use the API token stored in GitHub secrets (remove if using trusted publishing)
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+      run: twine upload dist/* --verbose # Upload all files in the dist/ directory
+
+    # Example step for Trusted Publishing (alternative to API Token)
+    # - name: Publish package distributions to PyPI
+    #   uses: pypa/gh-action-pypi-publish@release/v1
+    #   # No env vars needed if using trusted publishing and the 'id-token: write' permission

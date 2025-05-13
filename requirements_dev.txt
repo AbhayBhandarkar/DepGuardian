@@ -1,0 +1,18 @@
+# requirements_dev.txt
+# Purpose: Lists dependencies needed for development (testing, linting, building).
+
+# Testing
+pytest>=7.0.0
+pytest-cov # Optional: for coverage reports
+
+# Linting & Formatting
+flake8>=5.0.0
+black>=22.0.0
+
+# Building & Publishing
+build>=0.10.0
+twine>=4.0.0
+
+# Mocks (if needed for tests)
+# pytest-mock
+# responses

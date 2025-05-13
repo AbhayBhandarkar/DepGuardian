@@ -1,1 +1,17 @@
-include dep_guardian/semver_checker.js
+# MANIFEST.in
+# Purpose: Tells setuptools which non-code files to include in the source distribution.
+
+include README.md
+include LICENSE
+include requirements_dev.txt
+# Recursively include the semver checker script within the package
+graft dep_guardian
+prune dep_guardian/__pycache__
+
+# Include global configuration files if any
+# include dep_guardian.conf
+
+# Include test files if you want them in the sdist (optional)
+# graft tests
+# graft test-project
+# global-exclude *.py[co] __pycache__ .pytest_cache test-project/node_modules
