@@ -3,16 +3,13 @@
 
 # Testing
 pytest>=7.0.0
-pytest-cov # Optional: for coverage reports
+pytest-cov
+pytest-mock
 
 # Linting & Formatting
-flake8>=5.0.0
+# flake8>=6.0.0  
 black>=22.0.0
 
 # Building & Publishing
 build>=0.10.0
 twine>=4.0.0
-
-# Mocks (if needed for tests)
-# pytest-mock
-# responses
