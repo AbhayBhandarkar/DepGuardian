@@ -1,0 +1,2626 @@
+{
+  "scan_metadata": {
+    "project_path": "/Users/mangalabhandarkar/DepGuardian-1/test-project",
+    "scan_timestamp_utc": "2025-05-19T17:56:52.543192+00:00",
+    "depguardian_version": "0.2.0",
+    "status": "success"
+  },
+  "project_info": {
+    "package_json_path": "/Users/mangalabhandarkar/DepGuardian-1/test-project/package.json",
+    "package_lock_path": "/Users/mangalabhandarkar/DepGuardian-1/test-project/package-lock.json",
+    "lockfile_version": 3
+  },
+  "direct_dependencies": [
+    {
+      "name": "express",
+      "required_range": "4.16.0",
+      "installed_version": "4.16.0",
+      "latest_version_npm": "5.1.0",
+      "satisfies_range": true,
+      "is_outdated": true,
+      "update_available_to": "5.1.0"
+    },
+    {
+      "name": "jest",
+      "required_range": "^27.0.0",
+      "installed_version": "27.5.1",
+      "latest_version_npm": "29.7.0",
+      "satisfies_range": true,
+      "is_outdated": true,
+      "update_available_to": "29.7.0"
+    }
+  ],
+  "installed_packages": {
+    "total_count": 364,
+    "packages": [
+      {
+        "name": "@ampproject/remapping",
+        "version": "2.3.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@ampproject/remapping"
+      },
+      {
+        "name": "@babel/code-frame",
+        "version": "7.26.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/code-frame"
+      },
+      {
+        "name": "@babel/compat-data",
+        "version": "7.26.8",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/compat-data"
+      },
+      {
+        "name": "@babel/core",
+        "version": "7.26.10",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/core"
+      },
+      {
+        "name": "convert-source-map",
+        "version": "1.9.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/convert-source-map"
+      },
+      {
+        "name": "debug",
+        "version": "4.4.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/istanbul-lib-source-maps/node_modules/debug"
+      },
+      {
+        "name": "ms",
+        "version": "2.0.0",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/ms"
+      },
+      {
+        "name": "@babel/generator",
+        "version": "7.27.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/generator"
+      },
+      {
+        "name": "@babel/helper-compilation-targets",
+        "version": "7.27.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/helper-compilation-targets"
+      },
+      {
+        "name": "@babel/helper-module-imports",
+        "version": "7.25.9",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/helper-module-imports"
+      },
+      {
+        "name": "@babel/helper-module-transforms",
+        "version": "7.26.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/helper-module-transforms"
+      },
+      {
+        "name": "@babel/helper-plugin-utils",
+        "version": "7.26.5",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/helper-plugin-utils"
+      },
+      {
+        "name": "@babel/helper-string-parser",
+        "version": "7.25.9",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/helper-string-parser"
+      },
+      {
+        "name": "@babel/helper-validator-identifier",
+        "version": "7.25.9",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/helper-validator-identifier"
+      },
+      {
+        "name": "@babel/helper-validator-option",
+        "version": "7.25.9",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/helper-validator-option"
+      },
+      {
+        "name": "@babel/helpers",
+        "version": "7.27.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/helpers"
+      },
+      {
+        "name": "@babel/parser",
+        "version": "7.27.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/parser"
+      },
+      {
+        "name": "@babel/plugin-syntax-async-generators",
+        "version": "7.8.4",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-async-generators"
+      },
+      {
+        "name": "@babel/plugin-syntax-bigint",
+        "version": "7.8.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-bigint"
+      },
+      {
+        "name": "@babel/plugin-syntax-class-properties",
+        "version": "7.12.13",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-class-properties"
+      },
+      {
+        "name": "@babel/plugin-syntax-class-static-block",
+        "version": "7.14.5",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-class-static-block"
+      },
+      {
+        "name": "@babel/plugin-syntax-import-attributes",
+        "version": "7.26.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-import-attributes"
+      },
+      {
+        "name": "@babel/plugin-syntax-import-meta",
+        "version": "7.10.4",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-import-meta"
+      },
+      {
+        "name": "@babel/plugin-syntax-json-strings",
+        "version": "7.8.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-json-strings"
+      },
+      {
+        "name": "@babel/plugin-syntax-logical-assignment-operators",
+        "version": "7.10.4",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-logical-assignment-operators"
+      },
+      {
+        "name": "@babel/plugin-syntax-nullish-coalescing-operator",
+        "version": "7.8.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-nullish-coalescing-operator"
+      },
+      {
+        "name": "@babel/plugin-syntax-numeric-separator",
+        "version": "7.10.4",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-numeric-separator"
+      },
+      {
+        "name": "@babel/plugin-syntax-object-rest-spread",
+        "version": "7.8.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-object-rest-spread"
+      },
+      {
+        "name": "@babel/plugin-syntax-optional-catch-binding",
+        "version": "7.8.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-optional-catch-binding"
+      },
+      {
+        "name": "@babel/plugin-syntax-optional-chaining",
+        "version": "7.8.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-optional-chaining"
+      },
+      {
+        "name": "@babel/plugin-syntax-private-property-in-object",
+        "version": "7.14.5",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-private-property-in-object"
+      },
+      {
+        "name": "@babel/plugin-syntax-top-level-await",
+        "version": "7.14.5",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-top-level-await"
+      },
+      {
+        "name": "@babel/plugin-syntax-typescript",
+        "version": "7.25.9",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/plugin-syntax-typescript"
+      },
+      {
+        "name": "@babel/template",
+        "version": "7.27.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/template"
+      },
+      {
+        "name": "@babel/traverse",
+        "version": "7.27.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/traverse"
+      },
+      {
+        "name": "@babel/types",
+        "version": "7.27.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@babel/types"
+      },
+      {
+        "name": "@bcoe/v8-coverage",
+        "version": "0.2.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@bcoe/v8-coverage"
+      },
+      {
+        "name": "@istanbuljs/load-nyc-config",
+        "version": "1.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@istanbuljs/load-nyc-config"
+      },
+      {
+        "name": "@istanbuljs/schema",
+        "version": "0.1.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@istanbuljs/schema"
+      },
+      {
+        "name": "@jest/console",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jest/console"
+      },
+      {
+        "name": "@jest/core",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jest/core"
+      },
+      {
+        "name": "@jest/environment",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jest/environment"
+      },
+      {
+        "name": "@jest/fake-timers",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jest/fake-timers"
+      },
+      {
+        "name": "@jest/globals",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jest/globals"
+      },
+      {
+        "name": "@jest/reporters",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jest/reporters"
+      },
+      {
+        "name": "@jest/source-map",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jest/source-map"
+      },
+      {
+        "name": "@jest/test-result",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jest/test-result"
+      },
+      {
+        "name": "@jest/test-sequencer",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jest/test-sequencer"
+      },
+      {
+        "name": "@jest/transform",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jest/transform"
+      },
+      {
+        "name": "@jest/types",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jest/types"
+      },
+      {
+        "name": "@jridgewell/gen-mapping",
+        "version": "0.3.8",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jridgewell/gen-mapping"
+      },
+      {
+        "name": "@jridgewell/resolve-uri",
+        "version": "3.1.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jridgewell/resolve-uri"
+      },
+      {
+        "name": "@jridgewell/set-array",
+        "version": "1.2.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jridgewell/set-array"
+      },
+      {
+        "name": "@jridgewell/sourcemap-codec",
+        "version": "1.5.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jridgewell/sourcemap-codec"
+      },
+      {
+        "name": "@jridgewell/trace-mapping",
+        "version": "0.3.25",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@jridgewell/trace-mapping"
+      },
+      {
+        "name": "@sinonjs/commons",
+        "version": "1.8.6",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@sinonjs/commons"
+      },
+      {
+        "name": "@sinonjs/fake-timers",
+        "version": "8.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@sinonjs/fake-timers"
+      },
+      {
+        "name": "@tootallnate/once",
+        "version": "1.1.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@tootallnate/once"
+      },
+      {
+        "name": "@types/babel__core",
+        "version": "7.20.5",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@types/babel__core"
+      },
+      {
+        "name": "@types/babel__generator",
+        "version": "7.27.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@types/babel__generator"
+      },
+      {
+        "name": "@types/babel__template",
+        "version": "7.4.4",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@types/babel__template"
+      },
+      {
+        "name": "@types/babel__traverse",
+        "version": "7.20.7",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@types/babel__traverse"
+      },
+      {
+        "name": "@types/graceful-fs",
+        "version": "4.1.9",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@types/graceful-fs"
+      },
+      {
+        "name": "@types/istanbul-lib-coverage",
+        "version": "2.0.6",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@types/istanbul-lib-coverage"
+      },
+      {
+        "name": "@types/istanbul-lib-report",
+        "version": "3.0.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@types/istanbul-lib-report"
+      },
+      {
+        "name": "@types/istanbul-reports",
+        "version": "3.0.4",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@types/istanbul-reports"
+      },
+      {
+        "name": "@types/node",
+        "version": "22.14.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@types/node"
+      },
+      {
+        "name": "@types/prettier",
+        "version": "2.7.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@types/prettier"
+      },
+      {
+        "name": "@types/stack-utils",
+        "version": "2.0.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@types/stack-utils"
+      },
+      {
+        "name": "@types/yargs",
+        "version": "16.0.9",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@types/yargs"
+      },
+      {
+        "name": "@types/yargs-parser",
+        "version": "21.0.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/@types/yargs-parser"
+      },
+      {
+        "name": "abab",
+        "version": "2.0.6",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/abab"
+      },
+      {
+        "name": "accepts",
+        "version": "1.3.8",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/accepts"
+      },
+      {
+        "name": "acorn",
+        "version": "7.4.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/acorn-globals/node_modules/acorn"
+      },
+      {
+        "name": "acorn-globals",
+        "version": "6.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/acorn-globals"
+      },
+      {
+        "name": "acorn-walk",
+        "version": "7.2.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/acorn-walk"
+      },
+      {
+        "name": "agent-base",
+        "version": "6.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/agent-base"
+      },
+      {
+        "name": "ansi-escapes",
+        "version": "4.3.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/ansi-escapes"
+      },
+      {
+        "name": "ansi-regex",
+        "version": "5.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/ansi-regex"
+      },
+      {
+        "name": "ansi-styles",
+        "version": "5.2.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/pretty-format/node_modules/ansi-styles"
+      },
+      {
+        "name": "anymatch",
+        "version": "3.1.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/anymatch"
+      },
+      {
+        "name": "argparse",
+        "version": "1.0.10",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/argparse"
+      },
+      {
+        "name": "array-flatten",
+        "version": "1.1.1",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/array-flatten"
+      },
+      {
+        "name": "asynckit",
+        "version": "0.4.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/asynckit"
+      },
+      {
+        "name": "babel-jest",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/babel-jest"
+      },
+      {
+        "name": "babel-plugin-istanbul",
+        "version": "6.1.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/babel-plugin-istanbul"
+      },
+      {
+        "name": "babel-plugin-jest-hoist",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/babel-plugin-jest-hoist"
+      },
+      {
+        "name": "babel-preset-current-node-syntax",
+        "version": "1.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/babel-preset-current-node-syntax"
+      },
+      {
+        "name": "babel-preset-jest",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/babel-preset-jest"
+      },
+      {
+        "name": "balanced-match",
+        "version": "1.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/balanced-match"
+      },
+      {
+        "name": "body-parser",
+        "version": "1.18.2",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/body-parser"
+      },
+      {
+        "name": "iconv-lite",
+        "version": "0.4.19",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/raw-body/node_modules/iconv-lite"
+      },
+      {
+        "name": "brace-expansion",
+        "version": "1.1.11",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/brace-expansion"
+      },
+      {
+        "name": "braces",
+        "version": "3.0.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/braces"
+      },
+      {
+        "name": "browser-process-hrtime",
+        "version": "1.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/browser-process-hrtime"
+      },
+      {
+        "name": "browserslist",
+        "version": "4.24.4",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/browserslist"
+      },
+      {
+        "name": "bser",
+        "version": "2.1.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/bser"
+      },
+      {
+        "name": "buffer-from",
+        "version": "1.1.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/buffer-from"
+      },
+      {
+        "name": "bytes",
+        "version": "3.0.0",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/bytes"
+      },
+      {
+        "name": "call-bind-apply-helpers",
+        "version": "1.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/call-bind-apply-helpers"
+      },
+      {
+        "name": "callsites",
+        "version": "3.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/callsites"
+      },
+      {
+        "name": "camelcase",
+        "version": "6.3.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-validate/node_modules/camelcase"
+      },
+      {
+        "name": "caniuse-lite",
+        "version": "1.0.30001712",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/caniuse-lite"
+      },
+      {
+        "name": "chalk",
+        "version": "4.1.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/chalk"
+      },
+      {
+        "name": "char-regex",
+        "version": "1.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/char-regex"
+      },
+      {
+        "name": "ci-info",
+        "version": "3.9.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/ci-info"
+      },
+      {
+        "name": "cjs-module-lexer",
+        "version": "1.4.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/cjs-module-lexer"
+      },
+      {
+        "name": "cliui",
+        "version": "7.0.4",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/cliui"
+      },
+      {
+        "name": "co",
+        "version": "4.6.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/co"
+      },
+      {
+        "name": "collect-v8-coverage",
+        "version": "1.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/collect-v8-coverage"
+      },
+      {
+        "name": "color-convert",
+        "version": "2.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/color-convert"
+      },
+      {
+        "name": "color-name",
+        "version": "1.1.4",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/color-name"
+      },
+      {
+        "name": "combined-stream",
+        "version": "1.0.8",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/combined-stream"
+      },
+      {
+        "name": "concat-map",
+        "version": "0.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/concat-map"
+      },
+      {
+        "name": "content-disposition",
+        "version": "0.5.2",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/content-disposition"
+      },
+      {
+        "name": "content-type",
+        "version": "1.0.5",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/content-type"
+      },
+      {
+        "name": "cookie",
+        "version": "0.3.1",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/cookie"
+      },
+      {
+        "name": "cookie-signature",
+        "version": "1.0.6",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/cookie-signature"
+      },
+      {
+        "name": "cross-spawn",
+        "version": "7.0.6",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/cross-spawn"
+      },
+      {
+        "name": "cssom",
+        "version": "0.3.8",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/cssstyle/node_modules/cssom"
+      },
+      {
+        "name": "cssstyle",
+        "version": "2.3.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/cssstyle"
+      },
+      {
+        "name": "data-urls",
+        "version": "2.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/data-urls"
+      },
+      {
+        "name": "decimal.js",
+        "version": "10.5.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/decimal.js"
+      },
+      {
+        "name": "dedent",
+        "version": "0.7.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/dedent"
+      },
+      {
+        "name": "deepmerge",
+        "version": "4.3.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/deepmerge"
+      },
+      {
+        "name": "delayed-stream",
+        "version": "1.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/delayed-stream"
+      },
+      {
+        "name": "depd",
+        "version": "1.1.1",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/raw-body/node_modules/depd"
+      },
+      {
+        "name": "destroy",
+        "version": "1.0.4",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/destroy"
+      },
+      {
+        "name": "detect-newline",
+        "version": "3.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/detect-newline"
+      },
+      {
+        "name": "diff-sequences",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/diff-sequences"
+      },
+      {
+        "name": "domexception",
+        "version": "2.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/domexception"
+      },
+      {
+        "name": "webidl-conversions",
+        "version": "6.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/webidl-conversions"
+      },
+      {
+        "name": "dunder-proto",
+        "version": "1.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/dunder-proto"
+      },
+      {
+        "name": "ee-first",
+        "version": "1.1.1",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/ee-first"
+      },
+      {
+        "name": "electron-to-chromium",
+        "version": "1.5.132",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/electron-to-chromium"
+      },
+      {
+        "name": "emittery",
+        "version": "0.8.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/emittery"
+      },
+      {
+        "name": "emoji-regex",
+        "version": "8.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/emoji-regex"
+      },
+      {
+        "name": "encodeurl",
+        "version": "1.0.2",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/encodeurl"
+      },
+      {
+        "name": "error-ex",
+        "version": "1.3.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/error-ex"
+      },
+      {
+        "name": "es-define-property",
+        "version": "1.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/es-define-property"
+      },
+      {
+        "name": "es-errors",
+        "version": "1.3.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/es-errors"
+      },
+      {
+        "name": "es-object-atoms",
+        "version": "1.1.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/es-object-atoms"
+      },
+      {
+        "name": "es-set-tostringtag",
+        "version": "2.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/es-set-tostringtag"
+      },
+      {
+        "name": "escalade",
+        "version": "3.2.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/escalade"
+      },
+      {
+        "name": "escape-html",
+        "version": "1.0.3",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/escape-html"
+      },
+      {
+        "name": "escape-string-regexp",
+        "version": "2.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/escape-string-regexp"
+      },
+      {
+        "name": "escodegen",
+        "version": "2.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/escodegen"
+      },
+      {
+        "name": "esprima",
+        "version": "4.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/esprima"
+      },
+      {
+        "name": "estraverse",
+        "version": "5.3.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/estraverse"
+      },
+      {
+        "name": "esutils",
+        "version": "2.0.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/esutils"
+      },
+      {
+        "name": "etag",
+        "version": "1.8.1",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/etag"
+      },
+      {
+        "name": "execa",
+        "version": "5.1.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/execa"
+      },
+      {
+        "name": "exit",
+        "version": "0.1.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/exit"
+      },
+      {
+        "name": "expect",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/expect"
+      },
+      {
+        "name": "express",
+        "version": "4.16.0",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/express"
+      },
+      {
+        "name": "fast-json-stable-stringify",
+        "version": "2.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/fast-json-stable-stringify"
+      },
+      {
+        "name": "fb-watchman",
+        "version": "2.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/fb-watchman"
+      },
+      {
+        "name": "fill-range",
+        "version": "7.1.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/fill-range"
+      },
+      {
+        "name": "finalhandler",
+        "version": "1.1.0",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/finalhandler"
+      },
+      {
+        "name": "find-up",
+        "version": "4.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/find-up"
+      },
+      {
+        "name": "form-data",
+        "version": "3.0.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/form-data"
+      },
+      {
+        "name": "forwarded",
+        "version": "0.2.0",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/forwarded"
+      },
+      {
+        "name": "fresh",
+        "version": "0.5.2",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/fresh"
+      },
+      {
+        "name": "fs.realpath",
+        "version": "1.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/fs.realpath"
+      },
+      {
+        "name": "fsevents",
+        "version": "2.3.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/fsevents"
+      },
+      {
+        "name": "function-bind",
+        "version": "1.1.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/function-bind"
+      },
+      {
+        "name": "gensync",
+        "version": "1.0.0-beta.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/gensync"
+      },
+      {
+        "name": "get-caller-file",
+        "version": "2.0.5",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/get-caller-file"
+      },
+      {
+        "name": "get-intrinsic",
+        "version": "1.3.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/get-intrinsic"
+      },
+      {
+        "name": "get-package-type",
+        "version": "0.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/get-package-type"
+      },
+      {
+        "name": "get-proto",
+        "version": "1.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/get-proto"
+      },
+      {
+        "name": "get-stream",
+        "version": "6.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/get-stream"
+      },
+      {
+        "name": "glob",
+        "version": "7.2.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/glob"
+      },
+      {
+        "name": "globals",
+        "version": "11.12.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/globals"
+      },
+      {
+        "name": "gopd",
+        "version": "1.2.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/gopd"
+      },
+      {
+        "name": "graceful-fs",
+        "version": "4.2.11",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/graceful-fs"
+      },
+      {
+        "name": "has-flag",
+        "version": "4.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/has-flag"
+      },
+      {
+        "name": "has-symbols",
+        "version": "1.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/has-symbols"
+      },
+      {
+        "name": "has-tostringtag",
+        "version": "1.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/has-tostringtag"
+      },
+      {
+        "name": "hasown",
+        "version": "2.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/hasown"
+      },
+      {
+        "name": "html-encoding-sniffer",
+        "version": "2.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/html-encoding-sniffer"
+      },
+      {
+        "name": "html-escaper",
+        "version": "2.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/html-escaper"
+      },
+      {
+        "name": "http-errors",
+        "version": "1.6.2",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/raw-body/node_modules/http-errors"
+      },
+      {
+        "name": "inherits",
+        "version": "2.0.3",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/raw-body/node_modules/inherits"
+      },
+      {
+        "name": "statuses",
+        "version": "1.3.1",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/statuses"
+      },
+      {
+        "name": "http-proxy-agent",
+        "version": "4.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/http-proxy-agent"
+      },
+      {
+        "name": "https-proxy-agent",
+        "version": "5.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/https-proxy-agent"
+      },
+      {
+        "name": "human-signals",
+        "version": "2.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/human-signals"
+      },
+      {
+        "name": "import-local",
+        "version": "3.2.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/import-local"
+      },
+      {
+        "name": "imurmurhash",
+        "version": "0.1.4",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/imurmurhash"
+      },
+      {
+        "name": "inflight",
+        "version": "1.0.6",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/inflight"
+      },
+      {
+        "name": "ipaddr.js",
+        "version": "1.9.1",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/ipaddr.js"
+      },
+      {
+        "name": "is-arrayish",
+        "version": "0.2.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/is-arrayish"
+      },
+      {
+        "name": "is-core-module",
+        "version": "2.16.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/is-core-module"
+      },
+      {
+        "name": "is-fullwidth-code-point",
+        "version": "3.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/is-fullwidth-code-point"
+      },
+      {
+        "name": "is-generator-fn",
+        "version": "2.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/is-generator-fn"
+      },
+      {
+        "name": "is-number",
+        "version": "7.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/is-number"
+      },
+      {
+        "name": "is-potential-custom-element-name",
+        "version": "1.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/is-potential-custom-element-name"
+      },
+      {
+        "name": "is-stream",
+        "version": "2.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/is-stream"
+      },
+      {
+        "name": "is-typedarray",
+        "version": "1.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/is-typedarray"
+      },
+      {
+        "name": "isexe",
+        "version": "2.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/isexe"
+      },
+      {
+        "name": "istanbul-lib-coverage",
+        "version": "3.2.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/istanbul-lib-coverage"
+      },
+      {
+        "name": "istanbul-lib-instrument",
+        "version": "5.2.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/istanbul-lib-instrument"
+      },
+      {
+        "name": "istanbul-lib-report",
+        "version": "3.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/istanbul-lib-report"
+      },
+      {
+        "name": "istanbul-lib-source-maps",
+        "version": "4.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/istanbul-lib-source-maps"
+      },
+      {
+        "name": "istanbul-reports",
+        "version": "3.1.7",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/istanbul-reports"
+      },
+      {
+        "name": "jest",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest"
+      },
+      {
+        "name": "jest-changed-files",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-changed-files"
+      },
+      {
+        "name": "jest-circus",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-circus"
+      },
+      {
+        "name": "jest-cli",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-cli"
+      },
+      {
+        "name": "jest-config",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-config"
+      },
+      {
+        "name": "jest-diff",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-diff"
+      },
+      {
+        "name": "jest-docblock",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-docblock"
+      },
+      {
+        "name": "jest-each",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-each"
+      },
+      {
+        "name": "jest-environment-jsdom",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-environment-jsdom"
+      },
+      {
+        "name": "jest-environment-node",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-environment-node"
+      },
+      {
+        "name": "jest-get-type",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-get-type"
+      },
+      {
+        "name": "jest-haste-map",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-haste-map"
+      },
+      {
+        "name": "jest-jasmine2",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-jasmine2"
+      },
+      {
+        "name": "jest-leak-detector",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-leak-detector"
+      },
+      {
+        "name": "jest-matcher-utils",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-matcher-utils"
+      },
+      {
+        "name": "jest-message-util",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-message-util"
+      },
+      {
+        "name": "jest-mock",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-mock"
+      },
+      {
+        "name": "jest-pnp-resolver",
+        "version": "1.2.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-pnp-resolver"
+      },
+      {
+        "name": "jest-regex-util",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-regex-util"
+      },
+      {
+        "name": "jest-resolve",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-resolve"
+      },
+      {
+        "name": "jest-resolve-dependencies",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-resolve-dependencies"
+      },
+      {
+        "name": "jest-runner",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-runner"
+      },
+      {
+        "name": "jest-runtime",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-runtime"
+      },
+      {
+        "name": "jest-serializer",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-serializer"
+      },
+      {
+        "name": "jest-snapshot",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-snapshot"
+      },
+      {
+        "name": "semver",
+        "version": "6.3.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/semver"
+      },
+      {
+        "name": "jest-util",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-util"
+      },
+      {
+        "name": "jest-validate",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-validate"
+      },
+      {
+        "name": "jest-watcher",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-watcher"
+      },
+      {
+        "name": "jest-worker",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jest-worker"
+      },
+      {
+        "name": "supports-color",
+        "version": "7.2.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/supports-color"
+      },
+      {
+        "name": "js-tokens",
+        "version": "4.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/js-tokens"
+      },
+      {
+        "name": "js-yaml",
+        "version": "3.14.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/js-yaml"
+      },
+      {
+        "name": "jsdom",
+        "version": "16.7.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jsdom"
+      },
+      {
+        "name": "jsesc",
+        "version": "3.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/jsesc"
+      },
+      {
+        "name": "json-parse-even-better-errors",
+        "version": "2.3.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/json-parse-even-better-errors"
+      },
+      {
+        "name": "json5",
+        "version": "2.2.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/json5"
+      },
+      {
+        "name": "kleur",
+        "version": "3.0.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/kleur"
+      },
+      {
+        "name": "leven",
+        "version": "3.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/leven"
+      },
+      {
+        "name": "lines-and-columns",
+        "version": "1.2.4",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/lines-and-columns"
+      },
+      {
+        "name": "locate-path",
+        "version": "5.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/locate-path"
+      },
+      {
+        "name": "lodash",
+        "version": "4.17.21",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/lodash"
+      },
+      {
+        "name": "lru-cache",
+        "version": "5.1.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/lru-cache"
+      },
+      {
+        "name": "make-dir",
+        "version": "4.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/make-dir"
+      },
+      {
+        "name": "makeerror",
+        "version": "1.0.12",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/makeerror"
+      },
+      {
+        "name": "math-intrinsics",
+        "version": "1.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/math-intrinsics"
+      },
+      {
+        "name": "media-typer",
+        "version": "0.3.0",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/media-typer"
+      },
+      {
+        "name": "merge-descriptors",
+        "version": "1.0.1",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/merge-descriptors"
+      },
+      {
+        "name": "merge-stream",
+        "version": "2.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/merge-stream"
+      },
+      {
+        "name": "methods",
+        "version": "1.1.2",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/methods"
+      },
+      {
+        "name": "micromatch",
+        "version": "4.0.8",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/micromatch"
+      },
+      {
+        "name": "mime",
+        "version": "1.4.1",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/mime"
+      },
+      {
+        "name": "mime-db",
+        "version": "1.52.0",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/mime-db"
+      },
+      {
+        "name": "mime-types",
+        "version": "2.1.35",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/mime-types"
+      },
+      {
+        "name": "mimic-fn",
+        "version": "2.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/mimic-fn"
+      },
+      {
+        "name": "minimatch",
+        "version": "3.1.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/minimatch"
+      },
+      {
+        "name": "natural-compare",
+        "version": "1.4.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/natural-compare"
+      },
+      {
+        "name": "negotiator",
+        "version": "0.6.3",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/negotiator"
+      },
+      {
+        "name": "node-int64",
+        "version": "0.4.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/node-int64"
+      },
+      {
+        "name": "node-releases",
+        "version": "2.0.19",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/node-releases"
+      },
+      {
+        "name": "normalize-path",
+        "version": "3.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/normalize-path"
+      },
+      {
+        "name": "npm-run-path",
+        "version": "4.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/npm-run-path"
+      },
+      {
+        "name": "nwsapi",
+        "version": "2.2.20",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/nwsapi"
+      },
+      {
+        "name": "on-finished",
+        "version": "2.3.0",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/on-finished"
+      },
+      {
+        "name": "once",
+        "version": "1.4.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/once"
+      },
+      {
+        "name": "onetime",
+        "version": "5.1.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/onetime"
+      },
+      {
+        "name": "p-limit",
+        "version": "2.3.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/p-limit"
+      },
+      {
+        "name": "p-locate",
+        "version": "4.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/p-locate"
+      },
+      {
+        "name": "p-try",
+        "version": "2.2.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/p-try"
+      },
+      {
+        "name": "parse-json",
+        "version": "5.2.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/parse-json"
+      },
+      {
+        "name": "parse5",
+        "version": "6.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/parse5"
+      },
+      {
+        "name": "parseurl",
+        "version": "1.3.3",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/parseurl"
+      },
+      {
+        "name": "path-exists",
+        "version": "4.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/path-exists"
+      },
+      {
+        "name": "path-is-absolute",
+        "version": "1.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/path-is-absolute"
+      },
+      {
+        "name": "path-key",
+        "version": "3.1.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/path-key"
+      },
+      {
+        "name": "path-parse",
+        "version": "1.0.7",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/path-parse"
+      },
+      {
+        "name": "path-to-regexp",
+        "version": "0.1.7",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/path-to-regexp"
+      },
+      {
+        "name": "picocolors",
+        "version": "1.1.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/picocolors"
+      },
+      {
+        "name": "picomatch",
+        "version": "2.3.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/picomatch"
+      },
+      {
+        "name": "pirates",
+        "version": "4.0.7",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/pirates"
+      },
+      {
+        "name": "pkg-dir",
+        "version": "4.2.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/pkg-dir"
+      },
+      {
+        "name": "pretty-format",
+        "version": "27.5.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/pretty-format"
+      },
+      {
+        "name": "prompts",
+        "version": "2.4.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/prompts"
+      },
+      {
+        "name": "proxy-addr",
+        "version": "2.0.7",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/proxy-addr"
+      },
+      {
+        "name": "psl",
+        "version": "1.15.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/psl"
+      },
+      {
+        "name": "punycode",
+        "version": "2.3.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/punycode"
+      },
+      {
+        "name": "qs",
+        "version": "6.5.1",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/qs"
+      },
+      {
+        "name": "querystringify",
+        "version": "2.2.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/querystringify"
+      },
+      {
+        "name": "range-parser",
+        "version": "1.2.1",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/range-parser"
+      },
+      {
+        "name": "raw-body",
+        "version": "2.3.2",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/raw-body"
+      },
+      {
+        "name": "setprototypeof",
+        "version": "1.1.0",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/setprototypeof"
+      },
+      {
+        "name": "react-is",
+        "version": "17.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/react-is"
+      },
+      {
+        "name": "require-directory",
+        "version": "2.1.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/require-directory"
+      },
+      {
+        "name": "requires-port",
+        "version": "1.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/requires-port"
+      },
+      {
+        "name": "resolve",
+        "version": "1.22.10",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/resolve"
+      },
+      {
+        "name": "resolve-cwd",
+        "version": "3.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/resolve-cwd"
+      },
+      {
+        "name": "resolve-from",
+        "version": "5.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/resolve-from"
+      },
+      {
+        "name": "resolve.exports",
+        "version": "1.1.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/resolve.exports"
+      },
+      {
+        "name": "rimraf",
+        "version": "3.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/rimraf"
+      },
+      {
+        "name": "safe-buffer",
+        "version": "5.1.1",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/safe-buffer"
+      },
+      {
+        "name": "safer-buffer",
+        "version": "2.1.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/safer-buffer"
+      },
+      {
+        "name": "saxes",
+        "version": "5.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/saxes"
+      },
+      {
+        "name": "send",
+        "version": "0.16.0",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/send"
+      },
+      {
+        "name": "serve-static",
+        "version": "1.13.0",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/serve-static"
+      },
+      {
+        "name": "shebang-command",
+        "version": "2.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/shebang-command"
+      },
+      {
+        "name": "shebang-regex",
+        "version": "3.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/shebang-regex"
+      },
+      {
+        "name": "signal-exit",
+        "version": "3.0.7",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/signal-exit"
+      },
+      {
+        "name": "sisteransi",
+        "version": "1.0.5",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/sisteransi"
+      },
+      {
+        "name": "slash",
+        "version": "3.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/slash"
+      },
+      {
+        "name": "source-map",
+        "version": "0.7.4",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/v8-to-istanbul/node_modules/source-map"
+      },
+      {
+        "name": "source-map-support",
+        "version": "0.5.21",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/source-map-support"
+      },
+      {
+        "name": "sprintf-js",
+        "version": "1.0.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/sprintf-js"
+      },
+      {
+        "name": "stack-utils",
+        "version": "2.0.6",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/stack-utils"
+      },
+      {
+        "name": "string-length",
+        "version": "4.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/string-length"
+      },
+      {
+        "name": "string-width",
+        "version": "4.2.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/string-width"
+      },
+      {
+        "name": "strip-ansi",
+        "version": "6.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/strip-ansi"
+      },
+      {
+        "name": "strip-bom",
+        "version": "4.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/strip-bom"
+      },
+      {
+        "name": "strip-final-newline",
+        "version": "2.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/strip-final-newline"
+      },
+      {
+        "name": "strip-json-comments",
+        "version": "3.1.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/strip-json-comments"
+      },
+      {
+        "name": "supports-hyperlinks",
+        "version": "2.3.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/supports-hyperlinks"
+      },
+      {
+        "name": "supports-preserve-symlinks-flag",
+        "version": "1.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/supports-preserve-symlinks-flag"
+      },
+      {
+        "name": "symbol-tree",
+        "version": "3.2.4",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/symbol-tree"
+      },
+      {
+        "name": "terminal-link",
+        "version": "2.1.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/terminal-link"
+      },
+      {
+        "name": "test-exclude",
+        "version": "6.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/test-exclude"
+      },
+      {
+        "name": "throat",
+        "version": "6.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/throat"
+      },
+      {
+        "name": "tmpl",
+        "version": "1.0.5",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/tmpl"
+      },
+      {
+        "name": "to-regex-range",
+        "version": "5.0.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/to-regex-range"
+      },
+      {
+        "name": "tough-cookie",
+        "version": "4.1.4",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/tough-cookie"
+      },
+      {
+        "name": "tr46",
+        "version": "2.1.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/tr46"
+      },
+      {
+        "name": "type-detect",
+        "version": "4.0.8",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/type-detect"
+      },
+      {
+        "name": "type-fest",
+        "version": "0.21.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/type-fest"
+      },
+      {
+        "name": "type-is",
+        "version": "1.6.18",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/type-is"
+      },
+      {
+        "name": "typedarray-to-buffer",
+        "version": "3.1.5",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/typedarray-to-buffer"
+      },
+      {
+        "name": "undici-types",
+        "version": "6.21.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/undici-types"
+      },
+      {
+        "name": "universalify",
+        "version": "0.2.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/universalify"
+      },
+      {
+        "name": "unpipe",
+        "version": "1.0.0",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/unpipe"
+      },
+      {
+        "name": "update-browserslist-db",
+        "version": "1.1.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/update-browserslist-db"
+      },
+      {
+        "name": "url-parse",
+        "version": "1.5.10",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/url-parse"
+      },
+      {
+        "name": "utils-merge",
+        "version": "1.0.1",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/utils-merge"
+      },
+      {
+        "name": "v8-to-istanbul",
+        "version": "8.1.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/v8-to-istanbul"
+      },
+      {
+        "name": "vary",
+        "version": "1.1.2",
+        "is_dev_dependency_heuristic": false,
+        "path_in_node_modules": "node_modules/vary"
+      },
+      {
+        "name": "w3c-hr-time",
+        "version": "1.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/w3c-hr-time"
+      },
+      {
+        "name": "w3c-xmlserializer",
+        "version": "2.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/w3c-xmlserializer"
+      },
+      {
+        "name": "walker",
+        "version": "1.0.8",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/walker"
+      },
+      {
+        "name": "whatwg-encoding",
+        "version": "1.0.5",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/whatwg-encoding"
+      },
+      {
+        "name": "whatwg-mimetype",
+        "version": "2.3.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/whatwg-mimetype"
+      },
+      {
+        "name": "whatwg-url",
+        "version": "8.7.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/whatwg-url"
+      },
+      {
+        "name": "which",
+        "version": "2.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/which"
+      },
+      {
+        "name": "wrap-ansi",
+        "version": "7.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/wrap-ansi"
+      },
+      {
+        "name": "wrappy",
+        "version": "1.0.2",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/wrappy"
+      },
+      {
+        "name": "write-file-atomic",
+        "version": "3.0.3",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/write-file-atomic"
+      },
+      {
+        "name": "ws",
+        "version": "7.5.10",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/ws"
+      },
+      {
+        "name": "xml-name-validator",
+        "version": "3.0.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/xml-name-validator"
+      },
+      {
+        "name": "xmlchars",
+        "version": "2.2.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/xmlchars"
+      },
+      {
+        "name": "y18n",
+        "version": "5.0.8",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/y18n"
+      },
+      {
+        "name": "yallist",
+        "version": "3.1.1",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/yallist"
+      },
+      {
+        "name": "yargs",
+        "version": "16.2.0",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/yargs"
+      },
+      {
+        "name": "yargs-parser",
+        "version": "20.2.9",
+        "is_dev_dependency_heuristic": true,
+        "path_in_node_modules": "node_modules/yargs-parser"
+      }
+    ]
+  },
+  "vulnerabilities_report": {
+    "source": "OSV.dev",
+    "total_vulnerable_packages_found": 39,
+    "vulnerabilities": [
+      {
+        "package_name": "debug",
+        "vulnerable_version_installed": "4.4.0",
+        "osv_ids": [
+          "GHSA-9vvw-cc9w-f27h",
+          "GHSA-gxpj-cx7g-858c"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-9vvw-cc9w-f27h"
+      },
+      {
+        "package_name": "ms",
+        "vulnerable_version_installed": "2.0.0",
+        "osv_ids": [
+          "GHSA-3fx5-fwvr-xrjg",
+          "GHSA-w9mr-4mfr-499f"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-3fx5-fwvr-xrjg"
+      },
+      {
+        "package_name": "@babel/helpers",
+        "vulnerable_version_installed": "7.27.0",
+        "osv_ids": [
+          "GHSA-968p-4wvh-cqc8"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-968p-4wvh-cqc8"
+      },
+      {
+        "package_name": "@babel/traverse",
+        "vulnerable_version_installed": "7.27.0",
+        "osv_ids": [
+          "GHSA-67hx-6x53-jw92"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-67hx-6x53-jw92"
+      },
+      {
+        "package_name": "acorn",
+        "vulnerable_version_installed": "7.4.1",
+        "osv_ids": [
+          "GHSA-6chw-6frg-f759"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-6chw-6frg-f759"
+      },
+      {
+        "package_name": "ansi-regex",
+        "vulnerable_version_installed": "5.0.1",
+        "osv_ids": [
+          "GHSA-93q8-gq69-wqmw"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-93q8-gq69-wqmw"
+      },
+      {
+        "package_name": "body-parser",
+        "vulnerable_version_installed": "1.18.2",
+        "osv_ids": [
+          "GHSA-qwcr-r2fm-qrc7"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-qwcr-r2fm-qrc7"
+      },
+      {
+        "package_name": "brace-expansion",
+        "vulnerable_version_installed": "1.1.11",
+        "osv_ids": [
+          "GHSA-832h-xg76-4gv6"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-832h-xg76-4gv6"
+      },
+      {
+        "package_name": "braces",
+        "vulnerable_version_installed": "3.0.3",
+        "osv_ids": [
+          "GHSA-cwfw-4gq5-mrqx",
+          "GHSA-g95f-p29q-9xw4",
+          "GHSA-grv7-fg5c-xmjg"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-cwfw-4gq5-mrqx"
+      },
+      {
+        "package_name": "browserslist",
+        "vulnerable_version_installed": "4.24.4",
+        "osv_ids": [
+          "GHSA-w8qv-6jwh-64r5"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-w8qv-6jwh-64r5"
+      },
+      {
+        "package_name": "cookie",
+        "vulnerable_version_installed": "0.3.1",
+        "osv_ids": [
+          "GHSA-pxg6-pf52-xh8x"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-pxg6-pf52-xh8x"
+      },
+      {
+        "package_name": "cookie-signature",
+        "vulnerable_version_installed": "1.0.6",
+        "osv_ids": [
+          "GHSA-92vm-wfm5-mxvv"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-92vm-wfm5-mxvv"
+      },
+      {
+        "package_name": "cross-spawn",
+        "vulnerable_version_installed": "7.0.6",
+        "osv_ids": [
+          "GHSA-3xgq-45jj-v275"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-3xgq-45jj-v275"
+      },
+      {
+        "package_name": "express",
+        "vulnerable_version_installed": "4.16.0",
+        "osv_ids": [
+          "GHSA-cm5g-3pgc-8rg4",
+          "GHSA-gpvr-g6gh-9mc2",
+          "GHSA-jj78-5fmv-mv28",
+          "GHSA-qw6h-vgh9-j6wx",
+          "GHSA-rv95-896h-c2vc"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-cm5g-3pgc-8rg4"
+      },
+      {
+        "package_name": "forwarded",
+        "vulnerable_version_installed": "0.2.0",
+        "osv_ids": [
+          "GHSA-mpcf-4gmh-23w8"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-mpcf-4gmh-23w8"
+      },
+      {
+        "package_name": "fresh",
+        "vulnerable_version_installed": "0.5.2",
+        "osv_ids": [
+          "GHSA-9qj9-36jm-prpv"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-9qj9-36jm-prpv"
+      },
+      {
+        "package_name": "fsevents",
+        "vulnerable_version_installed": "2.3.3",
+        "osv_ids": [
+          "GHSA-8r6j-v8pm-fqw3",
+          "MAL-2023-462"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-8r6j-v8pm-fqw3"
+      },
+      {
+        "package_name": "http-proxy-agent",
+        "vulnerable_version_installed": "4.0.1",
+        "osv_ids": [
+          "GHSA-86wf-436m-h424",
+          "GHSA-8w57-jfpm-945m"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-86wf-436m-h424"
+      },
+      {
+        "package_name": "https-proxy-agent",
+        "vulnerable_version_installed": "5.0.1",
+        "osv_ids": [
+          "GHSA-8g7p-74h8-hg48",
+          "GHSA-pc5p-h8pf-mvwp"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-8g7p-74h8-hg48"
+      },
+      {
+        "package_name": "semver",
+        "vulnerable_version_installed": "6.3.1",
+        "osv_ids": [
+          "GHSA-c2qf-rxjj-qqgw",
+          "GHSA-x6fg-f45m-jf5q"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-c2qf-rxjj-qqgw"
+      },
+      {
+        "package_name": "js-yaml",
+        "vulnerable_version_installed": "3.14.1",
+        "osv_ids": [
+          "GHSA-2pr6-76vf-7546",
+          "GHSA-8j8c-7jfh-h6hx",
+          "GHSA-xxvw-45rp-3mj2"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-2pr6-76vf-7546"
+      },
+      {
+        "package_name": "json5",
+        "vulnerable_version_installed": "2.2.3",
+        "osv_ids": [
+          "GHSA-9c47-m6qq-7p4h"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-9c47-m6qq-7p4h"
+      },
+      {
+        "package_name": "lodash",
+        "vulnerable_version_installed": "4.17.21",
+        "osv_ids": [
+          "GHSA-29mw-wpgm-hmr9",
+          "GHSA-35jh-r3h4-6jhm",
+          "GHSA-4xc9-xhrj-v574",
+          "GHSA-fvqr-27wr-82fm",
+          "GHSA-jf85-cpcp-j695",
+          "GHSA-p6mc-m468-83gw",
+          "GHSA-x5rq-j2xg-h7qm"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-29mw-wpgm-hmr9"
+      },
+      {
+        "package_name": "micromatch",
+        "vulnerable_version_installed": "4.0.8",
+        "osv_ids": [
+          "GHSA-952p-6rrq-rcjv"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-952p-6rrq-rcjv"
+      },
+      {
+        "package_name": "mime",
+        "vulnerable_version_installed": "1.4.1",
+        "osv_ids": [
+          "GHSA-wrvr-8mpx-r7pp"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-wrvr-8mpx-r7pp"
+      },
+      {
+        "package_name": "minimatch",
+        "vulnerable_version_installed": "3.1.2",
+        "osv_ids": [
+          "GHSA-f8q6-p94x-37v3",
+          "GHSA-hxm2-r34f-qmc5"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-f8q6-p94x-37v3"
+      },
+      {
+        "package_name": "negotiator",
+        "vulnerable_version_installed": "0.6.3",
+        "osv_ids": [
+          "GHSA-7mc5-chhp-fmc3"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-7mc5-chhp-fmc3"
+      },
+      {
+        "package_name": "path-parse",
+        "vulnerable_version_installed": "1.0.7",
+        "osv_ids": [
+          "GHSA-hj48-42vr-x3v9"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-hj48-42vr-x3v9"
+      },
+      {
+        "package_name": "path-to-regexp",
+        "vulnerable_version_installed": "0.1.7",
+        "osv_ids": [
+          "GHSA-9wv6-86v2-598j",
+          "GHSA-rhx6-c78j-4q9w"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-9wv6-86v2-598j"
+      },
+      {
+        "package_name": "qs",
+        "vulnerable_version_installed": "6.5.1",
+        "osv_ids": [
+          "GHSA-f9cm-p3w6-xvr3",
+          "GHSA-gqgv-6jq5-jjj9",
+          "GHSA-hrpp-h998-j3pp",
+          "GHSA-jjv7-qpx3-h62q"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-f9cm-p3w6-xvr3"
+      },
+      {
+        "package_name": "querystringify",
+        "vulnerable_version_installed": "2.2.0",
+        "osv_ids": [
+          "GHSA-hxcm-v35h-mg2x"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-hxcm-v35h-mg2x"
+      },
+      {
+        "package_name": "send",
+        "vulnerable_version_installed": "0.16.0",
+        "osv_ids": [
+          "GHSA-jgqf-hwc5-hh37",
+          "GHSA-m6fv-jmcg-4jfg",
+          "GHSA-xwg4-93c6-3h42"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-jgqf-hwc5-hh37"
+      },
+      {
+        "package_name": "serve-static",
+        "vulnerable_version_installed": "1.13.0",
+        "osv_ids": [
+          "GHSA-c3x7-gjmx-r2ff",
+          "GHSA-cm22-4g7w-348p"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-c3x7-gjmx-r2ff"
+      },
+      {
+        "package_name": "tmpl",
+        "vulnerable_version_installed": "1.0.5",
+        "osv_ids": [
+          "GHSA-jgrx-mgxx-jf9v"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-jgrx-mgxx-jf9v"
+      },
+      {
+        "package_name": "tough-cookie",
+        "vulnerable_version_installed": "4.1.4",
+        "osv_ids": [
+          "GHSA-72xf-g2v4-qvf3",
+          "GHSA-g7q5-pjjr-gqvp",
+          "GHSA-qhv9-728r-6jqg"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-72xf-g2v4-qvf3"
+      },
+      {
+        "package_name": "url-parse",
+        "vulnerable_version_installed": "1.5.10",
+        "osv_ids": [
+          "GHSA-46c4-8wrp-j99v",
+          "GHSA-8v38-pw62-9cw2",
+          "GHSA-9m6j-fcg5-2442",
+          "GHSA-hgjh-723h-mx2j",
+          "GHSA-hh27-ffr2-f2jc",
+          "GHSA-jf5r-8hm2-f872",
+          "GHSA-pv4c-p2j5-38j4",
+          "GHSA-rqff-837h-mm52"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-46c4-8wrp-j99v"
+      },
+      {
+        "package_name": "ws",
+        "vulnerable_version_installed": "7.5.10",
+        "osv_ids": [
+          "GHSA-2mhh-w6q8-5hxw",
+          "GHSA-3h5v-q93c-6h6q",
+          "GHSA-5v72-xg48-5rpm",
+          "GHSA-6663-c963-2gqg",
+          "GHSA-6fc8-4gx4-v693"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-2mhh-w6q8-5hxw"
+      },
+      {
+        "package_name": "y18n",
+        "vulnerable_version_installed": "5.0.8",
+        "osv_ids": [
+          "GHSA-c4w7-xm78-47vh"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-c4w7-xm78-47vh"
+      },
+      {
+        "package_name": "yargs-parser",
+        "vulnerable_version_installed": "20.2.9",
+        "osv_ids": [
+          "GHSA-p9pc-299p-vxgp"
+        ],
+        "summary": "N/A",
+        "details_url": "https://osv.dev/vulnerability/GHSA-p9pc-299p-vxgp"
+      }
+    ]
+  },
+  "scan_summary": {
+    "outdated_direct_dependencies_count": 2,
+    "vulnerable_installed_packages_count": 39,
+    "total_vulnerabilities_found": 80
+  },
+  "errors_during_scan": []
+}

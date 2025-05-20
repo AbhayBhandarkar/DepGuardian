@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Conflict Analysis: {{ package_name }}</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0; padding: 0; background-color: #f0f2f5;
+            color: #333; line-height: 1.6;
+        }
+        .navbar {
+            background-color: #003366; color: white; padding: 15px 30px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar h1 { margin: 0; font-size: 1.8em; color: white; }
+        .navbar .back-link {
+            color: white; text-decoration: none; padding: 8px 15px;
+            border-radius: 4px; background-color: #0056b3;
+            transition: background-color 0.3s ease;
+        }
+        .navbar .back-link:hover { background-color: #004085; }
+        .container {
+            max-width: 900px; margin: 30px auto; padding: 25px;
+            background-color: #fff; border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        h2 {
+            color: #003366; border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px; margin-top: 0; margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+        h3 { color: #004085; font-size: 1.3em; margin-top: 30px; margin-bottom: 10px;}
+        .context-section, .analysis-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #fdfdfd;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+        .npm-error-display {
+            background-color: #2b2b2b; /* Dark background for errors */
+            color: #f8f8f2; /* Light text */
+            padding: 15px;
+            border-radius: 5px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #444;
+        }
+        .llm-analysis-text {
+            background-color: #e9f5ff; /* Light blue for LLM response */
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #b3d7ff;
+            white-space: pre-wrap; /* Preserve formatting from LLM */
+            font-size: 0.95em;
+        }
+        .error-message {
+            background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;
+            padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center;
+        }
+         .code {
+            background-color: #e9ecef; padding: 2px 4px; border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>LLM Conflict Analysis</h1>
+        <a href="{{ url_for('display_report', filename=filename) }}" class="back-link">&laquo; Back to Full Report</a>
+    </div>
+
+    <div class="container">
+        <h2>Analysis for Package: <code class="code">{{ package_name }}</code></h2>
+
+        {% if conflict_info %}
+            <div class="context-section">
+                <h3>Conflict Context</h3>
+                <p><strong>Attempted Update:</strong> From version <code class="code">{{ conflict_info.current_version }}</code> to <code class="code">{{ conflict_info.target_version }}</code>.</p>
+                {% if conflict_info.error_message %}
+                    <p><strong>DepGuardian Error:</strong> {{ conflict_info.error_message }}</p>
+                {% endif %}
+                
+                <h4>NPM Error Output (stderr):</h4>
+                {% if npm_error %}
+                    <pre class="npm-error-display"><code>{{ npm_error }}</code></pre>
+                {% else %}
+                    <p>No NPM error output was captured in the report for this attempt.</p>
+                {% endif %}
+            </div>
+        {% else %}
+            <p class="error-message">Could not retrieve conflict information for '{{ package_name }}' from the report.</p>
+        {% endif %}
+
+        <div class="analysis-section">
+            <h3>LLM Analysis & Suggestions</h3>
+            {% if llm_analysis_result %}
+                {% if llm_analysis_result.error %}
+                    <p class="error-message"><strong>Error from LLM:</strong> {{ llm_analysis_result.error }}</p>
+                {% elif llm_analysis_result.analysis %}
+                    <div class="llm-analysis-text">
+                        {{ llm_analysis_result.analysis }}
+                    </div>
+                {% else %}
+                    <p>LLM returned an empty or unexpected response.</p>
+                {% endif %}
+            {% else %}
+                <p class="error-message">LLM analysis could not be performed or returned no result.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DepGuardian Dashboard</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0; padding: 0; background-color: #f0f2f5;
+            color: #333; line-height: 1.6; display: flex;
+            flex-direction: column; min-height: 100vh;
+        }
+        .navbar {
+            background-color: #003366; color: white; padding: 15px 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 100%;
+        }
+        .navbar h1 { margin: 0; font-size: 1.8em; color: white; text-align: center; }
+        .container {
+            max-width: 800px; margin: 30px auto; padding: 30px;
+            background: white; border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        h2 { color: #003366; margin-bottom: 25px; font-size: 1.7em; text-align: center;}
+        .action-section { margin-bottom: 40px; padding-bottom:30px; border-bottom: 1px solid #eee;}
+        .action-section:last-child { border-bottom: none; margin-bottom:0; padding-bottom:0;}
+
+        .form-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        .form-group label { font-weight: 600; color: #333; font-size: 1.1em; text-align: left; }
+        .form-group input[type="file"], .form-group input[type="text"], .form-group input[type="password"] {
+            border: 1px solid #ccc; border-radius: 5px; padding: 12px;
+            font-size: 1em; width: calc(100% - 26px); /* Account for padding and border */
+        }
+        .form-group input[type="file"] {
+             border-style: dashed; background-color: #f8f9fa; cursor: pointer;
+        }
+        .form-group input[type="submit"] {
+            background-color: #007bff; color: white; padding: 12px 25px;
+            border: none; border-radius: 5px; cursor: pointer;
+            font-size: 1.1em; font-weight: 500;
+            transition: background-color 0.2s ease-in-out;
+            align-self: center; margin-top:10px;
+        }
+        .form-group input[type="submit"]:hover { background-color: #0056b3; }
+        
+        .flash-messages { list-style: none; padding: 0; margin-top: 0; margin-bottom: 20px; width: 100%; }
+        .flash-messages li {
+            padding: 12px 15px; margin-bottom: 10px; border-radius: 5px;
+            font-size: 0.95em; text-align: center;
+        }
+        .flash-messages .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .flash-messages .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .flash-messages .info { background-color: #cce5ff; color: #004085; border: 1px solid #b8daff; }
+        .api-key-note { font-size: 0.85em; color: #6c757d; text-align: left; margin-top: 5px; }
+        
+        .instructions-box {
+            margin-top: 30px; padding: 15px; background-color: #f8f9fa;
+            border: 1px solid #dee2e6; border-radius: 5px; font-size: 0.9em;
+            color: #495057; text-align: left;
+        }
+        .instructions-box code {
+            background-color: #e9ecef; padding: 2px 5px; border-radius: 3px;
+            font-family: monospace; color: #c7254e;
+        }
+        .footer {
+            text-align: center; margin-top: auto; padding: 20px;
+            font-size: 0.85em; color: #6c757d; background-color: #e9ecef;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>DepGuardian Dashboard</h1>
+    </div>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flash-messages">
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <div class="action-section">
+            <h2>Analyze Project with Gemini AI</h2>
+            <p style="text-align:center; margin-bottom:15px; font-size:0.95em;">
+                Upload your Node.js project folder (as a ZIP file) and provide your Gemini API Key.
+                DepGuardian will perform an initial scan and then leverage Gemini AI for in-depth analysis.
+            </p>
+            <form method="post" enctype="multipart/form-data" action="{{ url_for('agent_analyze_project_route') }}">
+                <div class="form-group">
+                    <label for="gemini_api_key">Gemini API Key:</label>
+                    <input type="password" name="gemini_api_key" id="gemini_api_key" placeholder="Enter your Gemini API Key" required>
+                    <p class="api-key-note">Your API key is used for this request only and is not stored by DepGuardian.</p>
+                </div>
+                <div class="form-group">
+                    <label for="project_zip">Project Folder (ZIP file):</label>
+                    <input type="file" name="project_zip" id="project_zip" accept=".zip" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Analyze with Gemini AI">
+                </div>
+            </form>
+        </div>
+
+        <div class="action-section">
+            <h2>View Existing DepGuardian Report</h2>
+             <p style="text-align:center; margin-bottom:15px; font-size:0.95em;">
+                Upload a DepGuardian JSON report file that you generated earlier using the CLI.
+            </p>
+            <form method="post" enctype="multipart/form-data" action="{{ url_for('upload_existing_report_route') }}">
+                <div class="form-group">
+                    <label for="report_file">DepGuardian JSON Report File:</label>
+                    <input type="file" name="report_file" id="report_file" accept=".json" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Upload & View Report">
+                </div>
+            </form>
+            <div class="instructions-box">
+                <p><strong>How to generate a JSON report with the CLI (for uploading here):</strong></p>
+                <ol>
+                    <li>Open your terminal.</li>
+                    <li>Navigate to your Node.js project directory.</li>
+                    <li>Run the DepGuardian CLI: <br>
+                        <code>depg check --path . --json-report report.json</code>
+                    </li>
+                    <li>This will create a <code>report.json</code> file in your project directory.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; {{ SCRIPT_LOAD_TIME.strftime('%Y') if SCRIPT_LOAD_TIME else "" }} DepGuardian. An automated dependency analysis tool.</p>
+    </div>
+
+</body>
+</html>

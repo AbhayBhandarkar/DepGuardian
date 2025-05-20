@@ -1,15 +1,21 @@
 # requirements_dev.txt
-# Purpose: Lists dependencies needed for development (testing, linting, building).
+# Purpose: Lists dependencies needed for development (testing, formatting, building, GUI).
 
 # Testing
 pytest>=7.0.0
 pytest-cov
 pytest-mock
 
-# Linting & Formatting
-# flake8>=6.0.0  
+# Formatting
 black>=22.0.0
 
 # Building & Publishing
 build>=0.10.0
 twine>=4.0.0
+
+# GUI Development
+Flask>=2.0.0
+
+# LLM Integration
+httpx>=0.23.0,<0.28.0 # Still useful for Ollama or other HTTP calls
+google-generativeai>=0.4.0 # For Gemini API

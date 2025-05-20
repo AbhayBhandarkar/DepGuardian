@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DepGuardian AI Analysis Report: {{ filename | default('N/A', true) }}</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0; padding: 0; background-color: #f0f2f5; 
+            color: #333; line-height: 1.6;
+        }
+        .navbar {
+            background-color: #003366; color: white; padding: 15px 30px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar h1 { margin: 0; font-size: 1.8em; color: white; }
+        .navbar .back-link {
+            color: white; text-decoration: none; padding: 8px 15px;
+            border-radius: 4px; background-color: #0056b3;
+            transition: background-color 0.3s ease;
+        }
+        .navbar .back-link:hover { background-color: #004085; }
+        .container {
+            max-width: 1400px; margin: 30px auto; padding: 25px;
+            background-color: #fff; border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        h1.page-title { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #eee; padding-bottom:10px; color: #003366;}
+        h2 {
+            color: #003366; border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px; margin-top: 40px; margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+        h2:first-of-type { margin-top: 0; }
+        h3 { color: #004085; margin-top: 25px; font-size: 1.3em; border-bottom: 1px solid #ccc; padding-bottom: 5px;}
+        h4 { color: #0056b3; font-size: 1.1em; margin-top: 20px;}
+
+        table {
+            width: 100%; border-collapse: collapse; margin-bottom: 30px;
+            font-size: 0.95em; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-radius: 5px; overflow: hidden; 
+        }
+        th, td {
+            border: 1px solid #e0e0e0; padding: 12px 15px; 
+            text-align: left; vertical-align: top;
+        }
+        th { background-color: #007bff; color: white; font-weight: 600; }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+        tr:hover { background-color: #e9ecef; }
+        
+        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 30px; }
+        .summary-card {
+            background-color: #ffffff; border: 1px solid #e0e0e0;
+            padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .summary-card h3 { margin-top: 0; color: #0056b3; font-size: 1.15em; margin-bottom: 10px; border-bottom: none;}
+        .summary-card p { margin: 5px 0; color: #555; }
+        .summary-card .count { font-size: 2em; font-weight: 700; display: block; margin-top: 8px; }
+        .count-outdated { color: #dc3545 !important; } 
+        .count-vulnerable { color: #fd7e14 !important; } 
+        .count-total { color: #198754 !important; } 
+        
+        .error-message, .info-message {
+            padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center;
+        }
+        .error-message { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;}
+        .info-message { background-color: #cce5ff; color: #004085; border: 1px solid #b8daff; }
+
+        .code {
+            background-color: #e9ecef; padding: 3px 6px; border-radius: 4px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            font-size: 0.9em; color: #333;
+        }
+        .details-section {
+            margin-bottom: 40px; padding: 20px; background-color: #fdfdfd;
+            border-radius: 5px; border: 1px solid #eee;
+        }
+        .list-styled { list-style: none; padding-left: 0; }
+        .list-styled li { padding: 10px; border-bottom: 1px dashed #eee; margin-bottom: 8px; }
+        .list-styled li:last-child { border-bottom: none; }
+        .osv-id { font-weight: bold; color: #007bff; text-decoration: none; }
+        .osv-id:hover { text-decoration: underline; }
+        .errors-list li { color: #c0392b; background-color: #fdecea; border-radius: 4px; }
+        
+        .status-success { color: #198754; font-weight: bold; }
+        .status-error { color: #dc3545; font-weight: bold; }
+        .boolean-true { color: #198754; } 
+        .boolean-false { color: #dc3545; } 
+        .boolean-na { color: #6c757d; } 
+        .outdated-yes { color: #fd7e14; font-weight: bold; } 
+        
+        .metadata-item { margin-bottom: 8px; font-size: 0.95em; }
+        .metadata-item strong { color: #0056b3; min-width: 200px; display: inline-block; }
+        
+        .npm-output {
+            background-color: #222; color: #eee; padding: 15px;
+            border-radius: 5px; margin-top: 10px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            font-size: 0.85em; white-space: pre-wrap; word-break: break-all;
+            max-height: 300px; overflow-y: auto; border: 1px solid #444;
+        }
+        .update-success { border-left: 5px solid #198754; padding-left: 15px; }
+        .update-failed { border-left: 5px solid #dc3545; padding-left: 15px; }
+        .update-failed h4 { color: #dc3545; }
+                
+        .gemini-analysis-section {
+            background-color: #e6f7ff; /* Light cyan for Gemini */
+            border: 1px solid #91d5ff; /* Light blue border */
+            padding: 20px; border-radius: 8px; margin-top: 30px;
+        }
+        .gemini-analysis-section h3 { color: #0050b3; border-bottom: 1px solid #adc6ff; padding-bottom: 8px;}
+        .gemini-analysis-text { 
+            white-space: pre-wrap; 
+            font-size: 0.95em; 
+            background-color: #f0f8ff; /* Alice blue for text background */
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #d6e9ff;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .gemini-analysis-text p { margin-top: 0; margin-bottom: 1em; }
+        .gemini-analysis-text h4 { font-size: 1.1em; color: #003a8c; margin-top: 1.5em; margin-bottom: 0.5em; }
+        .gemini-analysis-text ul { padding-left: 20px; }
+        .gemini-analysis-text li { margin-bottom: 0.5em; }
+        .gemini-analysis-text code { background-color: #d1e7fd; }
+
+
+        .flash-messages { list-style: none; padding: 0; margin-bottom: 20px; }
+        .flash-messages li { padding: 10px; margin-bottom: 10px; border-radius: 4px; }
+        .flash-messages .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .flash-messages .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .flash-messages .info { background-color: #cce5ff; color: #004085; border: 1px solid #b8daff; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>DepGuardian AI Analysis Report</h1>
+        <a href="{{ url_for('index') }}" class="back-link">&laquo; New Analysis</a>
+    </div>
+
+    <div class="container">
+        <h1 class="page-title">Analysis Report for: <code class="code">{{ filename | default('N/A', true) }}</code></h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flash-messages">
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+        {% endif %}
+
+        {% if report_data %}
+            {# Determine if this is an agent report or a simple scan report #}
+            {% set is_agent_report = report_data.agent_scan_metadata is defined %}
+            {% set initial_scan_data = report_data.depguardian_initial_scan if is_agent_report else report_data %}
+            {% set agent_metadata = report_data.agent_scan_metadata if is_agent_report else none %}
+            {% set gemini_analysis_data = report_data.gemini_analysis if is_agent_report else none %}
+
+            {% if agent_metadata %}
+            <div class="details-section">
+                <h2>AI Agent Scan Overview</h2>
+                <p class="metadata-item"><strong>Project Path Analyzed:</strong> <code class="code">{{ agent_metadata.project_path }}</code></p>
+                <p class="metadata-item"><strong>Analysis Timestamp (UTC):</strong> {{ agent_metadata.analysis_timestamp_utc }}</p>
+                <p class="metadata-item"><strong>DepGuardian Version:</strong> <code class="code">{{ agent_metadata.depguardian_version }}</code></p>
+                <p class="metadata-item"><strong>LLM Provider:</strong> {{ agent_metadata.llm_provider }}</p>
+                <p class="metadata-item"><strong>LLM Model Used:</strong> <code class="code">{{ agent_metadata.llm_model_used }}</code></p>
+            </div>
+            {% endif %}
+
+            <div class="details-section">
+                <h2>DepGuardian Core Scan Results</h2>
+                {% if not is_agent_report and initial_scan_data.scan_metadata %} {# Show core metadata only for non-agent reports #}
+                <div class="details-section" style="background-color: #f8f9fa; border-color: #ced4da; margin-top:0;">
+                    <h3>Core Scan Metadata</h3>
+                    <p class="metadata-item"><strong>Project Path:</strong> <code class="code">{{ initial_scan_data.scan_metadata.project_path }}</code></p>
+                    <p class="metadata-item"><strong>Scan Timestamp (UTC):</strong> {{ initial_scan_data.scan_metadata.scan_timestamp_utc }}</p>
+                    <p class="metadata-item"><strong>Core Scanner Version:</strong> <code class="code">{{ initial_scan_data.scan_metadata.depguardian_version }}</code></p>
+                    <p class="metadata-item"><strong>Core Scan Status:</strong>
+                        <span class="{{ 'status-success' if initial_scan_data.scan_metadata.status == 'success' else 'status-error' }}">
+                            {{ initial_scan_data.scan_metadata.status | capitalize }}
+                        </span>
+                    </p>
+                    {% if initial_scan_data.project_info %}
+                        <p class="metadata-item"><strong>Package.json:</strong> <code class="code">{{ initial_scan_data.project_info.package_json_path | default('N/A', true) }}</code></p>
+                        <p class="metadata-item"><strong>Package-lock.json:</strong> <code class="code">{{ initial_scan_data.project_info.package_lock_path | default('N/A', true) }}</code> (v{{ initial_scan_data.project_info.lockfile_version | default('N/A', true) }})</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <h3>Core Scan Summary</h3>
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <h4>Outdated Direct Dependencies</h4>
+                        <p class="count count-outdated">{{ initial_scan_data.scan_summary.outdated_direct_dependencies_count }}</p>
+                    </div>
+                    <div class="summary-card">
+                        <h4>Vulnerable Installed Packages</h4>
+                        <p class="count count-vulnerable">{{ initial_scan_data.scan_summary.vulnerable_installed_packages_count }}</p>
+                    </div>
+                     <div class="summary-card">
+                        <h4>Total Vulnerabilities Found</h4>
+                        <p class="count count-vulnerable">{{ initial_scan_data.scan_summary.total_vulnerabilities_found }}</p>
+                    </div>
+                    <div class="summary-card">
+                        <h4>Total Installed Packages</h4>
+                        <p class="count count-total">{{ initial_scan_data.installed_packages.total_count }}</p>
+                    </div>
+                </div>
+                
+                {% if initial_scan_data.errors_during_scan %}
+                <h3>Errors During Core Scan</h3>
+                <ul class="errors-list list-styled">
+                    {% for error in initial_scan_data.errors_during_scan %}
+                        <li>
+                            <strong>Source:</strong> <code class="code">{{ error.source_operation }}</code><br>
+                            {% if error.package_name_context and error.package_name_context != 'N/A' %}
+                                <strong>Package:</strong> <code class="code">{{ error.package_name_context }}</code><br>
+                            {% endif %}
+                            <strong>Message:</strong> {{ error.error_message }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                {% if initial_scan_data.update_attempt_details %}
+                <h3>Dependency Update Attempts (PR Creation)</h3>
+                <ul class="update-attempts-list list-styled">
+                    {% for attempt in initial_scan_data.update_attempt_details %}
+                        <li class="{{ 'update-success' if attempt.success else 'update-failed' }}">
+                            <h4>Update for: <code class="code">{{ attempt.package_name }}</code> (Target: {{ attempt.target_version }})</h4>
+                            <p><strong>Status:</strong> 
+                                {% if attempt.success %} <span class="status-success">SUCCESS</span>
+                                {% else %} <span class="status-error">FAILED</span>
+                                {% endif %}
+                            </p>
+                            {% if attempt.pr_url %}
+                                <p><strong>Pull Request:</strong> <a href="{{ attempt.pr_url }}" target="_blank">{{ attempt.pr_url }}</a></p>
+                            {% endif %}
+                            {% if not attempt.success and attempt.error_message %}
+                                <p><strong>DepGuardian Error:</strong> {{ attempt.error_message }}</p>
+                            {% endif %}
+                            {% if attempt.npm_stderr %}
+                                <p><strong>NPM Error Output (stderr):</strong></p>
+                                <pre class="npm-output"><code>{{ attempt.npm_stderr }}</code></pre>
+                                {# Ollama-specific button removed, Gemini analysis is for the whole project now #}
+                            {% elif not attempt.success and attempt.npm_stdout %} 
+                                <p><strong>NPM Standard Output (stdout):</strong></p>
+                                <pre class="npm-output"><code>{{ attempt.npm_stdout }}</code></pre>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <h3>Direct Dependencies Analysis</h3>
+                {% if initial_scan_data.direct_dependencies %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Package Name</th><th>Required Range</th><th>Installed</th>
+                                <th>Latest (NPM)</th><th>Satisfies Range?</th><th>Outdated?</th><th>Update To</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for dep in initial_scan_data.direct_dependencies %}
+                            <tr>
+                                <td><strong>{{ dep.name }}</strong></td>
+                                <td><code class="code">{{ dep.required_range }}</code></td>
+                                <td>{{ dep.installed_version | default('N/A', true) }}</td>
+                                <td>{{ dep.latest_version_npm | default('N/A', true) }}</td>
+                                <td>
+                                    {% if dep.satisfies_range is true %} <span class="boolean-true">Yes</span>
+                                    {% elif dep.satisfies_range is false %} <span class="boolean-false">No</span>
+                                    {% else %} <span class="boolean-na">N/A</span> {% endif %}
+                                </td>
+                                <td>
+                                    {% if dep.is_outdated %} <span class="outdated-yes">Yes</span>
+                                    {% elif dep.latest_version_npm %} <span class="boolean-true">No</span>
+                                    {% else %} <span class="boolean-na">N/A</span> {% endif %}
+                                </td>
+                                <td>{{ dep.update_available_to | default('N/A', true) }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No direct dependencies found or analyzed in the core scan.</p>
+                {% endif %}
+
+                <h3>Vulnerability Report (OSV.dev)</h3>
+                {% if initial_scan_data.vulnerabilities_report and initial_scan_data.vulnerabilities_report.vulnerabilities is not none %}
+                    {% if initial_scan_data.vulnerabilities_report.vulnerabilities %}
+                        <ul class="vulnerability-list list-styled">
+                        {% for vuln in initial_scan_data.vulnerabilities_report.vulnerabilities %}
+                            <li>
+                                <strong>Package:</strong> <code class="code">{{ vuln.package_name }}@{{ vuln.vulnerable_version_installed }}</code><br>
+                                <strong>OSV IDs:</strong> 
+                                {% for osv_id in vuln.osv_ids %}
+                                    <a href="{{ vuln.details_url | default('https://osv.dev/vulnerability/' + osv_id, true) }}" target="_blank" class="osv-id">{{ osv_id }}</a>{% if not loop.last %}, {% endif %}
+                                {% endfor %}<br>
+                                {% if vuln.summary and vuln.summary != 'N/A' %}
+                                    <strong>Summary:</strong> {{ vuln.summary }} <br>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p style="color: green;">No known vulnerabilities found by the core scan.</p>
+                    {% endif %}
+                {% else %}
+                     <p style="color: red;">Core vulnerability check failed or could not be performed.</p>
+                {% endif %}
+            </div>
+
+            {% if gemini_analysis_data %}
+            <div class="details-section gemini-analysis-section">
+                <h2>Gemini AI Analysis & Recommendations</h2>
+                {% if gemini_analysis_data.error %}
+                    <div class="error-message">
+                        <strong>Error from Gemini AI:</strong> {{ gemini_analysis_data.error }}
+                    </div>
+                {% elif gemini_analysis_data.analysis %}
+                    <div class="gemini-analysis-text">
+                        {# This will render Gemini's Markdown output. 
+                           For proper rendering, a JS Markdown library (e.g., Marked.js) 
+                           or a Flask extension (Flask-Markdown) would be needed.
+                           For now, pre-wrap will show it, but unstyled.
+                        #}
+                        <pre>{{ gemini_analysis_data.analysis }}</pre>
+                    </div>
+                     {% if gemini_analysis_data.prompt_sent_debug and initial_scan_data.scan_metadata.depguardian_version %} 
+                        <h4 style="margin-top:20px;">Debug: Prompt sent to Gemini (truncated)</h4>
+                        <pre class="npm-output" style="max-height: 200px;"><code>{{ gemini_analysis_data.prompt_sent_debug }}</code></pre>
+                    {% endif %}
+                {% else %}
+                    <p class="info-message">Gemini AI returned no specific analysis or an unexpected response structure.</p>
+                {% endif %}
+            </div>
+            {% endif %}
+
+        {% elif not error_message %}
+            <p class="info-message">No report data to display. Please upload or analyze a project.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

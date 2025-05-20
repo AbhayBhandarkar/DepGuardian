@@ -4,14 +4,14 @@
 include README.md
 include LICENSE
 include requirements_dev.txt
-# Recursively include the semver checker script within the package
+
+# Include the dep_guardian package itself
 graft dep_guardian
+
+# Specifically include GUI templates if graft doesn't catch them or for sdist
+recursive-include dep_guardian/gui/templates *.html
+
+# Exclude common unwanted files from the package
+global-exclude *.py[co] __pycache__ .pytest_cache
 prune dep_guardian/__pycache__
-
-# Include global configuration files if any
-# include dep_guardian.conf
-
-# Include test files if you want them in the sdist (optional)
-# graft tests
-# graft test-project
-# global-exclude *.py[co] __pycache__ .pytest_cache test-project/node_modules
+prune dep_guardian/gui/__pycache__

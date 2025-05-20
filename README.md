@@ -1,54 +1,70 @@
-# DepGuardian
+# DepGuardian 🛡️✨ AI Edition
 
-[![PyPI version](https://badge.fury.io/py/dep-guardian.svg?icon=si%3Apython )](https://badge.fury.io/py/dep-guardian )
-[![DepGuardian CI/CD](https://github.com/AbhayBhandarkar/DepGuardian/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/AbhayBhandarkar/DepGuardian/actions/workflows/ci.yml)
+🚀 Version 0.2.0: DepGuardian is no longer just a CLI tool! Now featuring a Local GUI & Gemini AI-Powered Project Analysis! 🚀  
+DepGuardian has leveled up! It's your comprehensive Python-powered assistant for monitoring, updating, and deeply analyzing your Node.js (NPM) project dependencies.  
+It meticulously checks for outdated packages, scans for known vulnerabilities using OSV.dev, and can automate Pull Request creation for straightforward updates. The major leap in this version is the integration of:  
 
-**DepGuardian** is a Python CLI tool that helps you **monitor and update your project dependencies**. It currently focuses on Node.js (NPM) dependencies, checking if your direct dependencies are up-to-date and if any installed packages (direct or transitive) have known vulnerabilities. It can even automate the process of updating a single dependency by opening a GitHub Pull Request.
+- A local web-based GUI 💻 for a more intuitive experience in managing and viewing reports.  
+- Agentic Project Analysis with the Gemini AI API 🧠, allowing you to upload your entire project for in-depth insights into inter-dependency conflicts and receive AI-generated resolution strategies.  
 
-## Features
+## Core Features 🌟
 
-- **Outdated Dependency Check:**  
-  Scans your `package.json` and `package-lock.json` (v1, v2, v3 supported) to find direct dependencies that are out of date compared to the NPM registry's `latest` tag. Reports the installed version, latest available version, and whether the installed version satisfies the range specified in `package.json`.
+### 🔎 Outdated Dependency Check:
+Scans your `package.json` and `package-lock.json` (v1, v2, v3 supported) to find direct dependencies that are out of date compared to the NPM registry's `latest` tag. Reports the installed version, latest available version, and whether the installed version satisfies the range specified in `package.json`.
 
-- **Vulnerability Audit:**  
-  Queries the *Open Source Vulnerabilities (OSV)* database ([osv.dev](https://osv.dev/ )) for any known vulnerabilities affecting your project’s *installed* package versions (from `package-lock.json`).
+### 🛡️ Vulnerability Audit:
+Queries the Open Source Vulnerabilities (OSV) database ([osv.dev](https://osv.dev/ )) for any known vulnerabilities affecting your project’s *installed* package versions (from `package-lock.json`).
 
-- **Automated Update PR (Experimental):**  
-  Optionally, for the *first* outdated direct dependency found, DepGuardian can:
-  1. Create a new git branch (e.g., `depguardian/update-express-4.18.2`).
-  2. Run `npm install <package>@<latest_version>`.
-  3. Commit the `package.json` and `package-lock.json` changes.
-  4. Push the branch to your `origin` remote.
-  5. Open a Pull Request on GitHub targeting your repository's default branch.
+### 🤖 Automated Update PR (Experimental):
+Optionally, for the *first* outdated direct dependency found, DepGuardian can:
+1. Create a new git branch (e.g., `depguardian/update-express-4.18.2`).
+2. Run `npm install <package>@<latest_version>`.
+3. Commit the `package.json` and `package-lock.json` changes.
+4. Push the branch to your `origin` remote.
+5. Open a Pull Request on GitHub targeting your repository's default branch.
 
-  **Prerequisites for PR creation:**
-  - A clean Git working directory (no uncommitted changes or untracked files).
-  - The `git` command available in your PATH.
-  - The `node` and `npm` commands available in your PATH.
-  - A GitHub Personal Access Token with `repo` scope provided via `--github-token` or `GITHUB_TOKEN`.
-  - The target GitHub repository specified via `--github-repo` or `GITHUB_REPOSITORY` (in `owner/repo` format).
+**Prerequisites for PR creation:**
+- A clean Git working directory.
+- `git`, `node`, and `npm` commands available in your PATH.
+- A GitHub Personal Access Token (with `repo` scope) provided via `--github-token` or `GITHUB_TOKEN`.
+- The target GitHub repository specified via `--github-repo` or `GITHUB_REPOSITORY` (in `owner/repo` format).
 
-## Requirements
+### ✨ NEW! Agentic Project Analysis with Gemini AI:
+- **Holistic Project View:** Upload your entire Node.js project (as a `.zip` file) directly through the DepGuardian GUI.
+- **AI-Powered Insights:** Provide your Gemini API Key. DepGuardian will:
+  - Perform its standard dependency and vulnerability scan on the uploaded project.
+  - Prepare a rich context including your `package.json`, `package-lock.json`, the initial scan results, and any npm error output from simulated updates (if applicable in future enhancements).
+  - Send this context to the Gemini API.
+  - Gemini analyzes for complex inter-dependency issues, potential version conflicts, and suggests actionable resolution strategies.
+- **Comprehensive Report:** Receive a detailed JSON report (viewable in the GUI) combining DepGuardian's core findings with Gemini's expert analysis and recommendations.
 
-- Python 3.8+
-- Node.js and npm (for interacting with Node.js projects and running the `semver_checker.js` helper)
+### 🖥️ NEW! Local Web GUI:
+- **Launch with Ease:** Start the local dashboard with a simple CLI command: `depg gui start`.
+- **AI Analysis Hub:** The primary interface for initiating "Analyze Project with Gemini AI" by uploading your project ZIP and API key.
+- **Report Viewer:** Upload and view standard JSON reports generated by `depg check` or the more comprehensive reports from the AI agent.
+
+## Requirements 📋
+
+- Python 3.9+ (due to `google-generativeai` library and other modern dependencies)
+- Node.js and npm (for interacting with Node.js projects and the `semver_checker.js` helper)
 - Git (for the automated PR creation feature)
+- A Gemini API Key (for the AI-powered project analysis feature). You can obtain one from [Google AI Studio](https://makersuite.google.com/ )
 
-## Installation
+## Installation 🛠️
 
-### From PyPI (Recommended)
+### From PyPI (Recommended for Users)
 
 ```bash
 pip install dep-guardian
 ```
 
-### From Source (for development)
+### From Source (for Development or Cutting-Edge Features)
 
 ```bash
 git clone https://github.com/AbhayBhandarkar/DepGuardian.git 
 cd DepGuardian
 
-# Create and activate a virtual environment (recommended)
+# Create and activate a Python virtual environment (highly recommended)
 python -m venv .venv
 # On macOS/Linux:
 source .venv/bin/activate
@@ -57,111 +73,150 @@ source .venv/bin/activate
 # On Windows (PowerShell):
 # .\.venv\Scripts\Activate.ps1
 
-# Install dependencies
-pip install -r requirements_dev.txt
-pip install -e .
+# Install all dependencies
+pip install --upgrade pip
+pip install -r requirements_dev.txt # Installs dev tools + runtime dependencies
+pip install -e .                  # Installs DepGuardian in editable mode
+
+# Install Node.js helper dependency (from DepGuardian's root package.json)
 npm install
 ```
 
-## Usage
+## Usage Guide 📖
 
-### Checking Dependencies
+### 1. Using the CLI for Standard Scans (`depg check`)
 
-Navigate to your Node.js project directory (which should contain `package.json` and `package-lock.json`) and run:
+Navigate to your Node.js project directory (which should contain `package.json` and `package-lock.json`).
+
+#### Basic Check (Console Output):
 
 ```bash
 depg check
 ```
 
-To scan a specific project:
+#### Generate a JSON Report (for GUI upload or other uses):
 
 ```bash
-depg check --path /path/to/your/nodejs_project
+depg check --path /path/to/your/nodejs_project --json-report my_scan_report.json
 ```
 
-#### Example Output:
+##### Example Console Output from `depg check`:
 
 ```
 Scanning project at: /path/to/your/project
 Found 2 direct dependencies in package.json.
-Found 158 installed packages in package-lock.json.
+Found 158 installed packages in package-lock.json (v3).
 --------------------
-
 Checking Direct Dependencies against NPM Registry:
-- Checking express (^4.17.1)... Installed=4.17.1 | Latest=4.18.2 | satisfies range | Update available: 4.18.2
-- Checking jest (^27.0.0)... Installed=27.5.1 | Latest=29.5.0 | DOES NOT satisfy range | Update available: 29.5.0
+- Checking express (4.16.0)... Installed=4.16.0 | Latest=5.1.0 | satisfies range | Update available: 5.1.0
+- Checking jest (^27.0.0)... Installed=27.5.1 | Latest=29.7.0 | satisfies range | Update available: 29.7.0
 --------------------
-
 Checking for Known Vulnerabilities (OSV API):
 Querying OSV for 158 package versions...
 OSV query complete. Found 0 vulnerabilities affecting 0 package versions.
 No known vulnerabilities found in installed packages.
 --------------------
-
 Summary:
 2 direct dependencies are outdated.
 No vulnerabilities found.
+DepGuardian check complete.
 ```
 
-### Common Options
+### Automated Pull Request Creation (Experimental via `depg check`)
+
+To attempt to update the first outdated direct dependency found by `depg check` and create a PR:
+
+- Ensure the target project is a Git repository with a clean working directory.
+- Set your GitHub Token: `export GITHUB_TOKEN="your_github_pat"`
+
+Run:
+
+```bash
+depg check --path /path/to/project --create-pr --github-repo YourUser/YourRepo --json-report pr_attempt.json
+```
+
+The `pr_attempt.json` will contain details of the update attempt, including npm error output if it fails (useful for later analysis).
+
+#### Common `depg check` Options:
 
 - `--path /path/to/project`: Specify the project directory.
+- `--json-report <filepath>`: Save detailed results to a JSON file.
+- `--create-pr`: Attempt to create a PR for the first outdated dependency.
+- `--github-repo <owner/repo>`: Target repository for the PR.
+- `--github-token <token>`: GitHub PAT for PR creation.
 - `--verbose` or `-v`: Show more detailed debug logging.
 
-### Creating an Automated Pull Request
+### 2. Using the Local Web GUI 🖼️ (`depg gui start`)
 
-To automatically create a PR for the first outdated direct dependency found:
+The GUI is your new control center for AI-powered analysis and report viewing.
 
-1. Prepare your target project (Git repo with clean working directory).
-2. Set your GitHub Token:
+#### Start the GUI Server:
 
-   ```bash
-   export GITHUB_TOKEN="ghp_YourTokenHere..."
-   ```
-
-3. Run:
-
-   ```bash
-   depg check --path /path/to/your/nodejs_project --create-pr --github-repo YourGitHubUsername/TargetRepoName --verbose
-   ```
-
-#### Example Output for PR Creation:
-
-```
-... [previous check output] ...
-Summary:
-1 direct dependencies are outdated.
-No vulnerabilities found.
-
-Attempting to auto-update express from 4.17.1 -> 4.18.2
-Found Git repository at: /path/to/your/nodejs_project
-Creating new branch 'depguardian/update-express-4.18.2' from 'main'
-Running: npm install express@4.18.2 in /path/to/your/nodejs_project
-Staging files: ['package.json', 'package-lock.json']
-Committing with message: Update express from 4.17.1 to 4.18.2
-
-Automated by DepGuardian.
-Pushing branch 'depguardian/update-express-4.18.2' to remote 'origin'...
-Branch 'depguardian/update-express-4.18.2' pushed successfully.
-Creating Pull Request on 'YourGitHubUsername/TargetRepoName' from 'depguardian/update-express-4.18.2' to 'main'...
-Pull Request created: https://github.com/YourGitHubUsername/TargetRepoName/pull/123   
-
-Check complete.
+```bash
+depg gui --port number
 ```
 
-### Exit Codes
+By default, it runs on `http://localhost:5001`. Open this address in your web browser.
 
-- `0`: Check completed successfully (or PR created successfully if requested).
-- `1`: Outdated dependencies or vulnerabilities found, or an error occurred.
-- `2`: Usage error (e.g., invalid command-line arguments).
+#### GUI Features:
 
-## Development
+**Analyze Project with Gemini AI:**
+
+1. Navigate to the GUI (`http://localhost:5001`).
+2. Enter your Gemini API Key in the designated field.
+3. Upload your Node.js project folder as a single `.zip` file.
+4. Click "Analyze with Gemini AI".
+
+DepGuardian's backend (via the `depg agent analyze-project` CLI command) will:
+
+- Perform its standard scan on the extracted project.
+- Prepare a context including your `package.json`, `package-lock.json`, and the scan results.
+- Send this context to the Gemini AI model using your provided API key.
+- Gemini will analyze for inter-dependency issues, version conflicts, and suggest resolution strategies.
+- A comprehensive report combining DepGuardian's findings and Gemini's insights will be generated and displayed in your browser. This process may take several minutes.
+
+**View Existing DepGuardian Report:**
+
+If you have a JSON report previously generated by `depg check --json-report ...`, you can upload it directly using the "View Existing DepGuardian Report" section on the GUI's main page.  
+The report details (outdated dependencies, vulnerabilities, etc.) will be displayed.
+
+### 3. Using the CLI Agent for Gemini Analysis (`depg agent analyze-project`)
+
+This is the powerful command that the GUI uses for its AI analysis feature. You can also run it directly from your terminal for scripting or more direct control.
+
+Ensure your project folder is accessible on your filesystem.
+
+Set your Gemini API Key (can also be passed as an option):
+
+```bash
+export GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
+```
+
+Run the command:
+
+```bash
+depg agent analyze-project \
+    --project-path /path/to/your/nodejs_project_folder \
+    --gemini-api-key "$GEMINI_API_KEY" \
+    --output-json ai_enhanced_report.json \
+    --verbose
+```
+
+This will generate `ai_enhanced_report.json` containing both the standard DepGuardian scan data and the detailed textual analysis from Gemini.
+
+### Exit Codes for `depg check` and `depg agent analyze-project`:
+
+- `0`: Operation completed successfully, and no issues (outdated/vulnerable) were found by the core scan.
+- `1`: Operation completed, but issues (outdated/vulnerable) were found by the core scan, OR an error occurred during processing (e.g., API failure, file parsing error, LLM error). Check logs and the JSON report.
+- `2`: CLI usage error (e.g., invalid command-line arguments).
+
+## Development 🧑‍💻
 
 ```bash
 git clone https://github.com/AbhayBhandarkar/DepGuardian.git 
 cd DepGuardian
 
-# Create and activate a Python virtual environment
+# Create and activate a Python virtual environment (Python 3.9+ recommended)
 python -m venv .venv
 # On macOS/Linux:
 source .venv/bin/activate
@@ -171,30 +226,33 @@ source .venv/bin/activate
 # .\.venv\Scripts\Activate.ps1
 
 # Install development dependencies and DepGuardian in editable mode
+pip install --upgrade pip
 pip install -r requirements_dev.txt
 pip install -e .
 
-# Install Node.js helper dependency
+# Install Node.js helper dependency (for semver_checker.js)
 npm install
 
-# Check code formatting (and reformat if necessary)
-black . --check  # or `black .` to auto-fix
+# Check code formatting
+black . --check  # To check formatting
+# black .        # To automatically reformat files if needed
 
 # Run tests
 pytest
+
+# Run the GUI locally for development (from the DepGuardian-1/dep_guardian/gui/ directory)
+python app.py
 ```
 
 ## Roadmap / Future Features 🚀
 
-- **GUI Dashboard**: Develop a local web-based graphical user interface to visualize dependency reports, explore dependency graphs, and manage updates more interactively.
-- **LLM-Powered Conflict Insights**: Integrate a Large Language Model (LLM) to help analyze complex inter-dependency conflicts and suggest resolution strategies.
-- **Dockerization**: Provide an official Docker image for DepGuardian to ensure consistent execution across environments.
-- **Expanded Ecosystem Support**: Add support for other package managers and ecosystems (Python’s Pip, Java’s Maven, RubyGems, etc.).
-- **Enhanced Update Strategies**: Configure update strategies (patch/minor/major), ignore specific packages, or schedule checks.
-- **Batch PR Creation / Grouped Updates**: Create PRs for multiple outdated dependencies simultaneously or group related updates.
-- **Notification System**: Notify users about newly discovered vulnerabilities or critical updates.
-- **Deeper Conflict Analysis (Pre-Update)**: Predict potential conflicts before updating packages.
+DepGuardian is on a mission to become an indispensable DevOps companion! Here's what's on the horizon:
 
-## License
-
-This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
+- 🤖 **Enhanced LLM Interactivity & Actions:**
+  - Allow follow-up questions to the LLM based on its initial analysis directly within the GUI.
+  - Explore LLM-suggested concrete code/configuration changes for `package.json` (e.g., overrides, specific version pins) that users can review and apply.
+  - Enable the LLM to perform targeted web searches for very specific, up-to-the-minute conflict resolutions.
+- 🐳 **Dockerization:** Provide an official Docker image for DepGuardian (including the GUI and potentially a local LLM option like Ollama) for easy, consistent execution.
+- 🌐 **Expanded Ecosystem Support:** Add support for other package managers and programming language ecosystems (e.g., Python's Pip, Java's Maven, RubyGems).
+- ⚙️ **Advanced Update Strategies:** More control over updates (patch/minor only, ignore lists, scheduling).
+- 📦 **Batch PR Creation / Grouped Updates:** Create PRs for multiple outdated dependencies simultaneously or group related updates.
