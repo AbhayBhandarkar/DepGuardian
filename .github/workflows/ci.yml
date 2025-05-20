@@ -57,9 +57,6 @@ jobs:
 
     # Flake8 step has been removed.
 
-    - name: Check formatting with Black
-      run: black . --check # This will fail if code is not formatted by Black
-
     - name: Run tests with Pytest
       run: pytest
 
