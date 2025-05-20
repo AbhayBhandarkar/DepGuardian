@@ -1,4 +1,4 @@
-[![DepGuardian CI/CD](https://github.com/AbhayBhandarkar/DepGuardian/actions/workflows/ci.yml/badge.svg)](https://github.com/AbhayBhandarkar/DepGuardian/actions/workflows/ci.yml)  
+[![PyPI version](https://badge.fury.io/py/dep-guardian.svg)](https://badge.fury.io/py/dep-guardian) [![DepGuardian CI/CD](https://github.com/AbhayBhandarkar/DepGuardian/actions/workflows/ci.yml/badge.svg)](https://github.com/AbhayBhandarkar/DepGuardian/actions/workflows/ci.yml)
 # DepGuardian 🛡️✨ AI Edition
 
 🚀 Version 0.2.0: DepGuardian is no longer just a CLI tool! Now featuring a Local GUI & Gemini AI-Powered Project Analysis! 🚀  
