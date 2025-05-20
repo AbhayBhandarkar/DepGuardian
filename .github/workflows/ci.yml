@@ -1,96 +1,73 @@
-# .github/workflows/main.yml
-# Purpose: Defines the CI/CD pipeline for testing, formatting, and publishing.
-
 name: DepGuardian CI/CD
 
 on:
   push:
-    branches: [ main ] # Or your primary development branch
-    # Trigger build/publish only on version tags (e.g., v1.0.0, v0.1.2)
-    tags:
-      - 'v*.*.*'
+    branches: [ main ]   # now triggers on every push to main
   pull_request:
     branches: [ main ]
 
-# Set default permissions for the GITHUB_TOKEN available to the workflow.
-# 'contents: read' is needed for checkout.
 permissions:
   contents: read
 
 jobs:
-  test_and_format_check: # Renamed job slightly as linting is now just formatting
-    # This job runs on pushes/PRs to main AND on tag pushes
+  test_and_format_check:
     name: Test & Format Check (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false # Don't cancel all jobs if one Python version fails
+      fail-fast: false
       matrix:
         python-version: ['3.11', '3.12', '3.13']
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-        cache: 'pip' # Cache pip dependencies
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: 'pip'
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18' # Or the version suitable for your 'semver' package
-        cache: 'npm' # Cache npm dependencies
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
 
-    - name: Install Python build/test/format dependencies
-      run: |
-        python -m pip install --upgrade pip
-        # Install dev dependencies from requirements_dev.txt
-        # (Ensure flake8 is removed from requirements_dev.txt)
-        pip install -r requirements_dev.txt
-        # Install the package itself along with runtime dependencies from setup.py
-        pip install .
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements_dev.txt
+          pip install .
 
-    - name: Install Node.js dependencies (for semver_checker.js)
-      run: npm ci # Use 'ci' for faster, reproducible installs in CI
+      - name: Install Node.js dependencies
+        run: npm ci
 
-    # Flake8 step has been removed.
-
-    - name: Run tests with Pytest
-      run: pytest
+      - name: Run tests with Pytest
+        run: pytest
 
   publish:
     name: Build and publish to PyPI
-    needs: test_and_format_check # Depends on the renamed job
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    needs: test_and_format_check
     runs-on: ubuntu-latest
-    # If using PyPI's trusted publishing (OIDC) in the future, uncomment and use:
-    # permissions:
-    #   id-token: write
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.9' # A specific version for building is fine
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
 
-    - name: Install build dependencies
-      run: python -m pip install --upgrade pip build twine
+      - name: Install build dependencies
+        run: python -m pip install --upgrade pip build twine
 
-    - name: Build package
-      run: python -m build # Builds sdist and wheel into the 'dist/' directory
+      - name: Build package
+        run: python -m build
 
-    - name: Publish distribution 📦 to PyPI
-      env:
-        # Use the API token stored in GitHub secrets
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
-      run: twine upload dist/* --verbose
-
-    # Optional: Example step for Trusted Publishing (alternative to API Token)
-    # - name: Publish package distributions to PyPI (using OIDC)
-    #   uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Publish distribution 📦 to PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        run: twine upload dist/* --verbose
