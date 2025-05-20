@@ -46,7 +46,7 @@ Optionally, for the *first* outdated direct dependency found, DepGuardian can:
 
 ## Requirements 📋
 
-- Python 3.9+ (due to `google-generativeai` library and other modern dependencies)
+- Python 3.11+ (due to `google-generativeai` library and other modern dependencies)
 - Node.js and npm (for interacting with Node.js projects and the `semver_checker.js` helper)
 - Git (for the automated PR creation feature)
 - A Gemini API Key (for the AI-powered project analysis feature). You can obtain one from [Google AI Studio](https://makersuite.google.com/ )
