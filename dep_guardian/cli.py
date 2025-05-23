@@ -11,7 +11,8 @@ import asyncio
 import tempfile
 import zipfile
 import glob
-import time  # For Gemini retry sleep
+import time 
+import shutil  
 
 from packaging.version import parse as parse_version
 from github import Github, GithubException
@@ -61,12 +62,12 @@ def _run_semver_check(installed_version, version_range):
         logger.error("semver_checker.js not found at %s", script_path)
         return None
     if not installed_version or not version_range:
-        logger.warning(
-            "Invalid input for semver check: installed=%s, range=%s",
-            installed_version,
-            version_range,
-        )
+        logger.warning("Invalid input for semver check.")
         return None
+    if shutil.which("node") is None:
+        logger.error("Node.js ('node') is not installed. Please install Node.js.")
+        return None
+
     command = ["node", script_path, installed_version, version_range]
     try:
         result = subprocess.run(
@@ -75,34 +76,34 @@ def _run_semver_check(installed_version, version_range):
             text=True,
             check=True,
             timeout=10,
-            encoding="utf-8",
         )
         output = result.stdout.strip().lower()
-        if output == "true":
-            return True
-        elif output == "false":
-            return False
-        else:
-            logger.error("semver_checker.js produced unexpected output: %s", output)
-            if result.stderr:
-                logger.error("stderr: %s", result.stderr.strip())
-            return None
-    except FileNotFoundError:
-        logger.error("Error: 'node' command not found.")
-        return None
+        return output == "true"
     except subprocess.CalledProcessError as e:
-        logger.error(
-            "semver_checker.js failed (exit %d): %s", e.returncode, e.stderr.strip()
-        )
-        if "Error: npm package 'semver' not found" in e.stderr:
-            logger.error("Hint: Run 'npm install' in DepGuardian root.")
-        return None
+        if "Cannot find module 'semver'" in e.stderr:
+            logger.warning("Node.js semver module not found. Installing locally...")
+            install_result = subprocess.run(
+                ["npm", "install", "semver"],
+                cwd=os.path.dirname(__file__),
+                capture_output=True,
+                text=True,
+            )
+            if install_result.returncode == 0:
+                logger.info("Successfully installed 'semver'. Retrying...")
+                return _run_semver_check(installed_version, version_range)
+            else:
+                logger.error("Failed to install 'semver': %s", install_result.stderr.strip())
+                return None
+        else:
+            logger.error("semver_checker.js failed (exit %d): %s", e.returncode, e.stderr.strip())
+            return None
     except subprocess.TimeoutExpired:
         logger.error("semver_checker.js timed out.")
         return None
     except Exception as e:
-        logger.error("Error running semver_checker.js: %s", e)
+        logger.error("Unexpected error running semver_checker.js: %s", e)
         return None
+
 
 
 def parse_package_json(file_path):
