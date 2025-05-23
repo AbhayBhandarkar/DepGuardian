@@ -1,26 +1,20 @@
-# .github/workflows/main.yml
-# Purpose: Defines the CI/CD pipeline for testing, formatting, and publishing.
-
 name: DepGuardian CI/CD
 
 on:
   push:
-    branches: [ main ] 
-    tags:
-      - 'v*.*.*'
+    branches: [ main ]
   pull_request:
     branches: [ main ]
-
 
 permissions:
   contents: read
 
 jobs:
-  test_and_format_check: 
+  test_and_format_check:
     name: Test & Format Check (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false # Don't cancel all jobs if one Python version fails
+      fail-fast: false
       matrix:
         python-version: ['3.11', '3.12', '3.13']
 
@@ -32,35 +26,30 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-        cache: 'pip' # Cache pip dependencies
+        cache: 'pip'
 
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18' 
-        cache: 'npm' 
+        node-version: '18'
+        cache: 'npm'
 
-    - name: Install Python build/test/format dependencies
+    - name: Install Python dependencies
       run: |
         python -m pip install --upgrade pip
-        # Install dev dependencies from requirements_dev.txt
-        # (Ensure flake8 is removed from requirements_dev.txt)
         pip install -r requirements_dev.txt
-        # Install the package itself along with runtime dependencies from setup.py
         pip install .
 
-    - name: Install Node.js dependencies (for semver_checker.js)
-      run: npm ci # Use 'ci' for faster, reproducible installs in CI
-
-    # Flake8 step has been removed.
+    - name: Install Node.js dependencies
+      run: npm ci
 
     - name: Run tests with Pytest
       run: pytest
 
   publish:
-    name: Build and publish to PyPI
-    needs: test_and_format_check 
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+    name: Build and Publish to PyPI
+    needs: test_and_format_check
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
@@ -70,15 +59,15 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.11' # A specific version for building is fine
+        python-version: '3.11'
 
-    - name: Install build dependencies
+    - name: Install build tools
       run: python -m pip install --upgrade pip build twine
 
     - name: Build package
-      run: python -m build 
+      run: python -m build
 
-    - name: Publish distribution 📦 to PyPI
+    - name: Publish to PyPI
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}

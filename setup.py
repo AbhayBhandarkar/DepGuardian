@@ -1,5 +1,3 @@
-# setup.py
-
 from setuptools import setup, find_packages
 import os
 import re
@@ -46,7 +44,7 @@ setup(
         "dep_guardian": [
             "semver_checker.js",
             "package-lock.json",
-            "node_modules/**/*",  # Includes all bundled node dependencies
+            "package.json",
         ],
         "dep_guardian.gui": ["templates/*.html"],
     },
