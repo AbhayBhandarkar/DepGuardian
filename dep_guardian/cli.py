@@ -224,6 +224,7 @@ def get_npm_package_info(package_name):
 def query_osv_api(installed_packages_list):
     if not installed_packages_list:
         return []
+
     queries = []
     for pkg_info in installed_packages_list:
         if not isinstance(pkg_info, dict):
@@ -241,78 +242,75 @@ def query_osv_api(installed_packages_list):
         queries.append(
             {"package": {"ecosystem": "npm", "name": name, "version": version}}
         )
+
     if not queries:
         logger.info("No valid packages for OSV query.")
         return []
-    logger.info("Querying OSV for %d package versions...", len(queries))
-    response = None
-    try:
-        response = requests.post(
-            OSV_API_URL, json={"queries": queries}, timeout=REQUEST_TIMEOUT * 2
-        )
-        response.raise_for_status()
-        results = response.json().get("results", [])
-        vulnerabilities_found = []
-        if len(results) != len(queries):
-            logger.warning(
-                "OSV results/queries count mismatch: %d vs %d",
-                len(results),
-                len(queries),
+
+    logger.info("Querying OSV for %d package versions (in batches)...", len(queries))
+    vulnerabilities_found = []
+    BATCH_SIZE = 100
+
+    for i in range(0, len(queries), BATCH_SIZE):
+        batch = queries[i:i + BATCH_SIZE]
+        try:
+            response = requests.post(
+                OSV_API_URL, json={"queries": batch}, timeout=REQUEST_TIMEOUT * 2
             )
-        for i, res_item in enumerate(results):
-            if i >= len(queries):
-                logger.warning("More OSV results than queries, stopping.")
-                break
-            queried_pkg = queries[i]["package"]
-            if not res_item or not isinstance(res_item, dict):
-                logger.debug("No/invalid OSV result for %s", queried_pkg)
-                continue
-            package_vulns_osv = res_item.get("vulns", [])
-            if package_vulns_osv and isinstance(package_vulns_osv, list):
-                osv_ids = [
-                    v.get("id")
-                    for v in package_vulns_osv
-                    if isinstance(v, dict) and v.get("id")
-                ]
-                if osv_ids:
-                    first_vuln = package_vulns_osv[0] if package_vulns_osv else {}
-                    vulnerabilities_found.append(
-                        {
-                            "package_name": queried_pkg["name"],
-                            "vulnerable_version_installed": queried_pkg["version"],
-                            "osv_ids": osv_ids,
-                            "summary": first_vuln.get("summary", "N/A"),
-                            "details_url": f"https://osv.dev/vulnerability/{osv_ids[0]}"
-                            if osv_ids
-                            else "N/A",
-                        }
-                    )
-        logger.info(
-            "OSV query complete. Found %d entries with vulnerabilities.",
-            len(vulnerabilities_found),
-        )
-        return vulnerabilities_found
-    except requests.exceptions.HTTPError as e:
-        logger.error(
-            "HTTP error querying OSV: %s (URL: %s)",
-            e,
-            e.request.url if e.request else "N/A",
-        )
-        if hasattr(e, "response") and e.response is not None:
-            logger.error("OSV Response: %s", e.response.text[:500])
-    except requests.exceptions.Timeout:
-        logger.error("Timeout querying OSV API.")
-    except requests.exceptions.RequestException as e:
-        logger.error("Network error querying OSV: %s", e)
-    except json.JSONDecodeError as e_json:
-        logger.error("Could not decode JSON response from OSV API: %s", e_json)
-        if response is not None:
-            logger.debug(
-                "OSV Raw Response Text (first 500 chars): %s", response.text[:500]
+            response.raise_for_status()
+            results = response.json().get("results", [])
+            if len(results) != len(batch):
+                logger.warning(
+                    "OSV results/queries count mismatch in batch %d-%d: %d vs %d",
+                    i, i + len(batch), len(results), len(batch)
+                )
+
+            for j, res_item in enumerate(results):
+                queried_pkg = batch[j]["package"]
+                if not res_item or not isinstance(res_item, dict):
+                    logger.debug("No/invalid OSV result for %s", queried_pkg)
+                    continue
+                package_vulns_osv = res_item.get("vulns", [])
+                if package_vulns_osv and isinstance(package_vulns_osv, list):
+                    osv_ids = [
+                        v.get("id")
+                        for v in package_vulns_osv
+                        if isinstance(v, dict) and v.get("id")
+                    ]
+                    if osv_ids:
+                        first_vuln = package_vulns_osv[0] if package_vulns_osv else {}
+                        vulnerabilities_found.append(
+                            {
+                                "package_name": queried_pkg["name"],
+                                "vulnerable_version_installed": queried_pkg["version"],
+                                "osv_ids": osv_ids,
+                                "summary": first_vuln.get("summary", "N/A"),
+                                "details_url": f"https://osv.dev/vulnerability/{osv_ids[0]}"
+                                if osv_ids else "N/A",
+                            }
+                        )
+        except requests.exceptions.HTTPError as e:
+            logger.error(
+                "HTTP error querying OSV (batch %d-%d): %s",
+                i, i + len(batch), e
             )
-    except Exception as e:
-        logger.error("Unexpected error querying OSV: %s", e, exc_info=True)
-    return None
+            if hasattr(e, "response") and e.response is not None:
+                logger.error("OSV Response: %s", e.response.text[:500])
+        except requests.exceptions.Timeout:
+            logger.error("Timeout querying OSV API (batch %d-%d)", i, i + len(batch))
+        except requests.exceptions.RequestException as e:
+            logger.error("Network error querying OSV (batch %d-%d): %s", i, i + len(batch), e)
+        except json.JSONDecodeError as e_json:
+            logger.error("Could not decode JSON from OSV in batch %d-%d: %s", i, i + len(batch), e_json)
+        except Exception as e:
+            logger.error("Unexpected error querying OSV in batch %d-%d: %s", i, i + len(batch), e, exc_info=True)
+
+    logger.info(
+        "OSV query complete. Found %d entries with vulnerabilities.",
+        len(vulnerabilities_found),
+    )
+    return vulnerabilities_found
+
 
 
 def find_git_repo(path):
