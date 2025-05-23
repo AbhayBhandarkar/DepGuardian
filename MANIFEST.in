@@ -1,17 +1,16 @@
-# MANIFEST.in
-# Purpose: Tells setuptools which non-code files to include in the source distribution.
-
 include README.md
 include LICENSE
 include requirements_dev.txt
 
-# Include the dep_guardian package itself
 graft dep_guardian
 
-# Specifically include GUI templates if graft doesn't catch them or for sdist
+# Include GUI templates and JS helpers
 recursive-include dep_guardian/gui/templates *.html
+include dep_guardian/semver_checker.js
+include dep_guardian/package-lock.json
+recursive-include dep_guardian/node_modules *
 
-# Exclude common unwanted files from the package
+# Exclude Python cache
 global-exclude *.py[co] __pycache__ .pytest_cache
 prune dep_guardian/__pycache__
 prune dep_guardian/gui/__pycache__
