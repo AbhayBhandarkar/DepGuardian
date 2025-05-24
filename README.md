@@ -56,7 +56,7 @@ Optionally, for the *first* outdated direct dependency found, DepGuardian can:
 ### From PyPI (Recommended for Users)
 
 ```bash
-pip install dep-guardian
+pip install dep-guardian==0.2.4
 ```
 
 ### From Source (for Development or Cutting-Edge Features)
