@@ -171,3 +171,4 @@ package-lock.json # Include the root one for the helper script deps
 test-project/node_modules/report.json
 report.json
 report.json
+report.json
