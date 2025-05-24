@@ -168,4 +168,4 @@ package-lock.json # Include the root one for the helper script deps
 # test-project/package-lock.json # Optionally ignore test project lockfile if desired
 
 # Test project node_modules
-test-project/node_modules/
+test-project/node_modules/report.json
