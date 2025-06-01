@@ -1,7 +1,7 @@
 [![PyPI version](https://badge.fury.io/py/dep-guardian.svg)](https://badge.fury.io/py/dep-guardian) [![DepGuardian CI/CD](https://github.com/AbhayBhandarkar/DepGuardian/actions/workflows/ci.yml/badge.svg)](https://github.com/AbhayBhandarkar/DepGuardian/actions/workflows/ci.yml)
 # DepGuardian 🛡️✨ AI Edition
 
-🚀 Version 0.2.3: DepGuardian is no longer just a CLI tool! Now featuring a Local GUI & Gemini AI-Powered Project Analysis! 🚀  
+🚀 Version 0.2.5: DepGuardian is no longer just a CLI tool! Now featuring a Local GUI & Gemini AI-Powered Project Analysis! 🚀  
 DepGuardian has leveled up! It's your comprehensive Python-powered assistant for monitoring, updating, and deeply analyzing your Node.js (NPM) project dependencies.  
 It meticulously checks for outdated packages, scans for known vulnerabilities using OSV.dev, and can automate Pull Request creation for straightforward updates. The major leap in this version is the integration of:  
 
@@ -56,7 +56,7 @@ Optionally, for the *first* outdated direct dependency found, DepGuardian can:
 ### From PyPI (Recommended for Users)
 
 ```bash
-pip install dep-guardian==0.2.4
+pip install dep-guardian==0.2.5
 ```
 
 ### From Source (for Development or Cutting-Edge Features)
