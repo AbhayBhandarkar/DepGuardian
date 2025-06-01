@@ -6,17 +6,17 @@ on:
   pull_request:
     branches: [ main ]
 
-permissions:
-  contents: read
-
 jobs:
   test_and_format_check:
     name: Test & Format Check (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    permissions:
+      contents: read # Required to checkout the code
+
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.11', '3.12', '3.13']
+        python-version: ['3.11', '3.12', '3.13'] # Your original Python versions
 
     steps:
     - name: Checkout repository
@@ -31,44 +31,106 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '18' # Your specified Node.js version
         cache: 'npm'
 
-    - name: Install Python dependencies
+    - name: Install Python dependencies (including dev tools like Bandit)
       run: |
         python -m pip install --upgrade pip
+        # Ensure 'bandit' is listed in your requirements_dev.txt
         pip install -r requirements_dev.txt
-        pip install .
+        pip install . # Installs DepGuardian and its dependencies
 
     - name: Install Node.js dependencies
+      # This ensures npm dependencies like 'semver' for the helper script are installed.
+      # If 'pip install .' (via setup.py or pyproject.toml) already triggers 'npm install',
+      # this might be redundant but ensures explicitness.
       run: npm ci
+
+    - name: Run Bandit Security Scan
+      # Assumes Bandit was installed via requirements_dev.txt
+      # Scans the current directory. -ll reports medium+ severity, -ii reports medium+ confidence.
+      # B101: assert_used (often flagged in test files, skip if noisy for your main codebase)
+      run: bandit -r . -ll -ii -s B101 --quiet
+      # Add '--exit-zero' if you want to see findings but not fail the build on issues.
 
     - name: Run tests with Pytest
       run: pytest
 
-  publish:
-    name: Build and Publish to PyPI
-    needs: test_and_format_check
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+  codeql_security_scan:
+    name: CodeQL Security Scan
     runs-on: ubuntu-latest
+    permissions:
+      contents: read          # Required for actions/checkout to fetch code
+      security-events: write  # Required for github/codeql-action/analyze to upload SARIF results
+      actions: read           # Required for github/codeql-action/init to analyze workflows
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['python', 'javascript'] # Languages to scan
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Set up Python
+    - name: Initialize CodeQL for ${{ matrix.language }}
+      uses: github/codeql-action/init@v3 # Using v3, check for latest stable version
+      with:
+        languages: ${{ matrix.language }}
+        # 'security-extended' provides a balance of precision and finding more vulnerabilities.
+        # Other options: 'default', 'security-and-quality'.
+        queries: security-extended
+        # Example: If you want to specify a custom CodeQL configuration file
+        # config-file: ./.github/codeql/codeql-config.yml
+
+    # For JavaScript analysis, CodeQL might benefit from having node_modules available,
+    # especially for resolving types or specific frameworks. The `npm ci` from the
+    # `test_and_format_check` job is in a different environment.
+    - if: matrix.language == 'javascript'
+      name: Install Node.js dependencies (for CodeQL JS analysis)
+      run: npm ci # Assumes package.json at root covers the JS helper's needs
+
+    # Autobuild attempts to build any compiled languages and can help CodeQL
+    # understand the project structure for interpreted languages too.
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v3
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:${{matrix.language}}" # Crucial for matrix strategy
+
+  publish:
+    name: Build and Publish to PyPI
+    # Publish only if tests and CodeQL scan (for all languages) are successful
+    needs: [test_and_format_check, codeql_security_scan]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read         # To checkout the repository
+      id-token: write      # Required for trusted publishing to PyPI (OIDC)
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python for publishing
       uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
+        python-version: '3.11' # Or your consistent publishing Python version
 
-    - name: Install build tools
+    - name: Install build dependencies
       run: python -m pip install --upgrade pip build twine
 
     - name: Build package
       run: python -m build
 
-    - name: Publish to PyPI
-      env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+    - name: Publish package to PyPI
+      # This configuration assumes you are using PyPI's trusted publishing (OIDC).
+      # Ensure your PyPI project is configured to trust this GitHub repository and workflow.
+      # If you are still using an API token, you would use:
+      # env:
+      #   TWINE_USERNAME: __token__
+      #   TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
       run: twine upload dist/* --verbose
