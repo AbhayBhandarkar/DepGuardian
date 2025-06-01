@@ -126,11 +126,10 @@ jobs:
     - name: Build package
       run: python -m build
 
-    - name: Publish package to PyPI
-      # This configuration assumes you are using PyPI's trusted publishing (OIDC).
-      # Ensure your PyPI project is configured to trust this GitHub repository and workflow.
-      # If you are still using an API token, you would use:
-      # env:
-      #   TWINE_USERNAME: __token__
-      #   TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+    - name: Publish to PyPI
+
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+      
       run: twine upload dist/* --verbose
